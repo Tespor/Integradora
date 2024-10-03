@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!--Bootstrap-->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/EstilosGenerales.css">
+    <title>Pago En Linea</title>
+</head>
+
+<body>
+    <div class="MyContainer">
+        <nav>
+            <div class="ContentFluid LogoContent">
+                <img class="IconCompany" src="img/Logos Empresa/LOGO-LINE.png" alt="">
+                <img src="img/Logos Empresa/TEXTO-LOGO.png" class="img-titulo-head"></img>
+            </div>
+            <a class="perfil" href="Login.html">
+                <img class="IconUser" src="img/Icono Usuario.png" alt="">
+                <p class="userText">Usuario</p>
+            </a>
+        </nav>
+    </div>
+
+    <div class="separador-lg"></div>
+
+    <div class="container">
+
+        <div class="separador"></div>
+
+        <div class="row">
+
+            <div class="col-sm-12 col-md-6 centerY">
+                <h3 class="text-uppercase titulo">Saldos pendientes:</h3>
+            </div>
+            <div class="col-sm-12 col-md-6 centerY">
+                <select class="text-uppercase" name="" id="">
+                    <option value="">seleccionar un folio</option>
+                    <option value="1">Opcion 1</option>
+                    <option value="2">Opcion 2</option>
+                    <option value="3">Opcion 3</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="lineX"></div>
+
+        <div class="row">
+
+            <div class="col-6">
+                <h6 class="text-uppercase centerY">nombre del titular:</h6>
+            </div>
+            <div class="col-6">
+                <p class="text-uppercase textCapsula">${{Nombre Completo}}</p>
+            </div>
+
+            <div class="col-6">
+                <h6 class="text-uppercase">Fecha de vencimiento:</h6>
+            </div>
+            <div class="col-6">
+                <p class="text-uppercase textCapsula">${{Fecha Vencimiento}}</p>
+            </div>
+
+            <div class="col-6">
+                <h6 class="text-uppercase">Total a pagar:</h6>
+            </div>
+            <div class="col-6">
+                <p class="text-uppercase textCapsula">${{Total Pagar}}</p>
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <input type="button" value="PAGAR">
+            </div>
+        </div>
+    </div>
+
+    
+</body>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.11/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</html>
