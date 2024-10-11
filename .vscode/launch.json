@@ -8,7 +8,7 @@
             "type": "chrome",
             "request": "launch",
             "name": "Integradora",
-            "file": "c:\\Users\\Pablo Escobar\\Desktop\\Integradora\\Login.html"
+            "file": "C:\\xampp\\htdocs\\Integradora\\Login.html"
         }
     ]
 }

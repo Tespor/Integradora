@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!--Bootstrap-->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-
     <link rel="stylesheet" href="css/EstilosGenerales.css">
     <link rel="stylesheet" href="css/Login.css">
     <title>Pago En Linea</title>
@@ -13,18 +12,16 @@
 <body>
     <div class="login-container">
         <h2 class="text-uppercase">Ingresar</h2>
-        <form action="Inicio.html" method="get">
+        <form action="verificar_login.php" method="POST">
             <div class="input-field text-uppercase">
-                <label for="username">Usuario:</label>
-                <input type="text" id="username" name="username" required>
+                <label for="correo">Correo:</label>
+                <input type="text" id="correo" name="correo" required>
             </div>
             <div class="input-field text-uppercase">
                 <label for="password">Contraseña:</label>
                 <input type="password" id="password" name="password" required>
             </div>
             <button type="submit" class="login-button">Entrar</button>
-                
-            <div class="error-message" id="error-message"></div>
         </form>
     </div>
 </body>
