@@ -11,8 +11,12 @@
 </head>
 <body>
     <div class="login-container">
-        <h2 class="text-uppercase">Ingresar</h2>
-        <form action="verificar_login.php" method="POST">
+        <h2 class="text-uppercase">Registrarse</h2>
+        <form action="procesar_registro.php" method="POST">
+            <div class="input-field text-uppercase">
+                <label for="ID_usuario">Nombre de Usuario:</label>
+                <input type="text" id="ID_usuario" name="ID_usuario" required>
+            </div>
             <div class="input-field text-uppercase">
                 <label for="correo">Correo:</label>
                 <input type="text" id="correo" name="correo" required>
@@ -21,13 +25,18 @@
                 <label for="password">Contraseña:</label>
                 <input type="password" id="password" name="password" required>
             </div>
-            <button type="submit" class="login-button">Entrar</button>
+            <button type="submit" class="login-button">Registrar</button>
             <div class="register-link text-center mt-3">
-                <p>¿Aún no tiene cuenta? <a href="registro.php">Regístrese aquí</a></p>
+                <p>¿Ya tienes cuenta? <a href="Login.php">Ingresa aquí</a></p>
             </div>
-
-            <div class="error-message" id="error-message"></div>
         </form>
+
+        <!-- Mostrar el mensaje de error si el usuario ya existe -->
+        <?php if (isset($_GET['error']) && $_GET['error'] == 'usuario_existente'): ?>
+            <div class="alert alert-danger text-center mt-3">
+                El nombre de usuario ya está registrado. Por favor, elige otro.
+            </div>
+        <?php endif; ?>
     </div>
 </body>
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
