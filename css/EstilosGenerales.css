@@ -2,24 +2,44 @@
     --ColorLight: rgb(0, 194, 255);
     --ColorP1: #0099ff;
     --ColorP2: #0064a7;
-    --ColorS1: #0074f8;
-    --ColorS2: #1356a3;
+    --ColorS1: #0077fe;
+    --ColorS2: #384fff;
     --ColorA: #000;
     --ColorB: #fff;
 
-    --ColorLowFade: rgba(0, 0, 0, 0.2);
-    --ColorLowFade: rgba(0, 0, 0, 0.4);
-    --ColorLowFade: rgba(0, 0, 0, 0.6);
+    --ColorAlpha1: rgba(0, 0, 0, 0.3);
+    --ColorAlpha2: rgba(0, 0, 0, 0.5);
+    --ColorAlpha3: rgba(0, 0, 0, 0.7);
 
 }
+/*Barra de desplazamiento*/
+body::-webkit-scrollbar {
+    width: 12px;
+    height: 12px;
+}
+
+/* Estilo para la parte de la pista (track) donde se mueve la barra */
+body::-webkit-scrollbar-track {
+    background-color: rgb(0 0 0 / 0.91);
+}
+
+/* Estilo para la barra de desplazamiento */
+body::-webkit-scrollbar-thumb {
+    background-color: var(--ColorP2);
+}
+
+    /* Estilo para cuando el usuario está interactuando con la barra */
+    body::-webkit-scrollbar-thumb:hover {
+        background-color: var(--ColorS2);
+        transition: 1.5s;
+    }
 
 body {
     padding: 0;
     margin: 0;
-    height: 300vh;
     background-image: url(../img/BackGround3.png);
     background-position: center;
-    background-size: 100vw auto;;
+    background-size: 100vw auto;
     background-attachment: fixed;
 }
 
@@ -52,11 +72,6 @@ body {
 .container{
     width: 95%;
     max-width: none;
-    background: rgba(0, 0, 0, 0.3);
-    border-radius: 25px;
-    backdrop-filter: blur(5px);
-    -webkit-backdrop-filter: blur(5px);
-    padding: 0 25px;
 }
 
 nav {
@@ -142,7 +157,7 @@ nav>.perfil:hover > .IconUser{
 }
 .textCapsula{
     padding: 10px;
-    background: var(--ColorLowFade);
+    background: var(--ColorAlpha1);
     border-radius: 10px;
 }
 
@@ -166,7 +181,7 @@ select:focus{
     border: 0;
 }
 
-input[type="button"]{
+input[type="button"], button{
     width: 100%;
     max-width: 400px;
     height: 40px;
@@ -180,8 +195,32 @@ input[type="button"]{
     transition: 0.4s;
     display: block;
 }
-input[type="button"]:hover{
-    background-color: var(--ColorP1);
+input[type="button"]:hover, button:hover{
+    background-color: var(--ColorP2);
+}
+
+.editText{
+    width: 100%;
+    max-width: 400px;
+    height: 40px;
+    margin: 20px auto;
+    padding: 2px 10px;
+    padding-left: 2.5rem;
+    border: 0;
+    background-color: var(--ColorAlpha2);
+    border-radius: 25px;
+    color: #fff;
+    transition: 0.4s;
+    display: block;
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+}
+.editText:hover{
+    background-color: var(--ColorAlpha3);
+}
+.editText:focus{
+    border: solid 2px var(--ColorS1);
+    outline: none;
 }
 
 /*Con efectos*/
@@ -208,5 +247,11 @@ input[type="button"]:hover{
 @media only screen and (min-width: 540px) {
     input[type="button"]{
         display: inline;
+    }
+}
+/*medidas para fondo adaptable al alto despues de que la orientacion de pantalla comienza a convertirce en vertical*/
+@media only screen and (max-width: 1240px) {
+    body{
+        background-size: auto 100vh;
     }
 }
