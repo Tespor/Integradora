@@ -1,145 +1,72 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/Estilosgenerales.css">
-    <link rel="stylesheet" href="css/estilos.css">
-    <title>Login</title>
-</head>
-<body>
-    <div id="videoBox">
-        <video id="videoLogin" src="videos/animationLogin.mp4" muted></video>
-    </div>
-
-    <div class="txtRegistrarIngresar">
-        <div id="txtRegistrar">
-            <h1>R<span class="second-letter">e</span>gistrar</h1>
-        </div>
-        <div id="txtIngresar">
-            <h1>I<span class="second-letter">n</span>gresar</h1>
-        </div>
-    </div>
-    <div id="cajaFondo" class="box">
-        <div class="mini-box"></div>
-        <div class="ball"></div>
-    </div>
-    <div id="contenedorForms">
-        <div id="formLogin">
-            <form action="Login.php" method="post">
-                <img class="logoText" src="img/LogosEmpresa/LOGO-Y-TEXTO.png" alt="">
-                <div class="input-box">
-                    <input class="editText" placeholder="Usuario" type="text" id="nombre_usuario" name="nombre_usuario" required>
-                </div>
-                <div class="input-box">
-                    <input class="editText" placeholder="Contraseña" id="contrasena" name="contrasena" required>
-                </div>
-                <button type="submit">INGRESAR</button>
-                <div id="btnRegistrar">
-                    <p>¿No tienes cuenta?</p>
-                </div>
-            </form>
-        </div>
-        <div id="formRegistrar">
-            <form>
-                <img class="logoText2" src="img/LogosEmpresa/LOGO-Y-TEXTO.png" alt="">
-                <div class="input-box">
-                    <input class="editText" placeholder="Nombre" type="text" id="correo" name="correo" required>
-                </div>
-                <div class="input-box">
-                    <input class="editText" placeholder="Apellido" type="text" id="correo" name="correo" required>
-                </div>
-                <div class="input-box">
-                    <input class="editText" placeholder="Correo" type="text" id="correo" name="correo" required>
-                </div>
-                <div class="input-box">
-                    <input class="editText" placeholder="Contraseña" type="password" id="password" name="password"
-                        required>
-                </div>
-                <div class="input-box">
-                    <input class="editText" placeholder="Confirmar contraseña" type="password" id="password" name="password"
-                        required>
-                </div>
-                <button type="submit">REGISTRARME</button>
-                <div id="btnLogin">
-                    <p>Regresar al inicio sesion</p>
-                </div>
-            </form>
-        </div>
-    </div>
-
-
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.11/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <script src="js/efectos.js"></script>
 <?php
 
-include 'Conexion.php';
+include 'conexion.php';
+
+// Configurar las cabeceras para recibir y enviar JSON
+header("Content-Type: application/json; charset=UTF-8");
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $nombre_usuario = $_POST['nombre_usuario'];
-    $contrasena = $_POST['contrasena'];
+    // Leer el JSON desde el cuerpo de la solicitud
+    $input = json_decode(file_get_contents("php://input"), true);
+    
+    // Verificar si los datos JSON se recibieron correctamente
+    if (isset($input['nombre_usuario']) && isset($input['contrasena'])) {
+        $nombre_usuario = $input['nombre_usuario'];
+        $contrasena = $input['contrasena'];
 
-    // Hasheo de contraseña
-    $contrasena_hash = hash('sha256', $contrasena);
+        // Hasheo de contraseña
+        $contrasena_hash = hash('sha256', $contrasena);
 
-    try {
-        // Procedimiento almacenado
-        $stmt = $conn->prepare("CALL SpLogin(?, ?, @tx_role)");
+        try {
+            // Procedimiento almacenado
+            $stmt = $conn->prepare("CALL SpLogin(?, ?, @tx_role)");
 
-        // Pasar los parámetros a la consulta
-        $stmt->bind_param("ss", $nombre_usuario, $contrasena_hash); // 'ss' indica dos parámetros de tipo string
-        $stmt->execute(); // Ejecutar la consulta
+            // Pasar los parámetros a la consulta
+            $stmt->bind_param("ss", $nombre_usuario, $contrasena_hash);
+            $stmt->execute();
 
-        // Obtener el valor de salida (rol de usuario)
-        $result = $conn->query("SELECT @tx_role AS fk_id_rol");
-        $row = $result->fetch_assoc();
-        
-        $id_rol_user = $row['fk_id_rol'];
+            // Obtener el valor de salida (rol de usuario)
+            $result = $conn->query("SELECT @tx_role AS fk_id_rol");
+            $row = $result->fetch_assoc();
 
-        if ($id_rol_user == -1) {
-            echo "Nombre de usuario o contraseña incorrectos.";
-        } else {
-            if ($id_rol_user == 1) {
+            $id_rol_user = $row['fk_id_rol'];
 
-                echo "<script>
-                    const videoBox = document.getElementById('videoBox');
-                    const videoLogin = document.getElementById('videoLogin');
+            // Preparar la respuesta JSON según el rol del usuario
+            if ($id_rol_user == -1) {
+                echo json_encode([
+                    "status" => "fail",
+                    "message" => "Datos incorrectos"
+                ]);
+            } else {
+                $response = ["status" => "success"];
 
-                    videoBox.style.transform = 'translate(0%)';
-                    videoLogin.play();
+                if ($id_rol_user == 1) {
+                    $response["role"] = "admin";
+                    $response["redirect"] = "Administrador.html";
+                } elseif ($id_rol_user == 2) {
+                    $response["role"] = "client";
+                    $response["redirect"] = "Inicio.html";
+                }
 
-                    setTimeout(function() {
-                        window.location.href = 'Administrador.html';
-                    }, 3000);
-                </script>";
-
-            } elseif ($id_rol_user == 2) {
-                // Redirigir al panel de cliente
-                echo "<script>
-                    const videoBox = document.getElementById('videoBox');
-                    const videoLogin = document.getElementById('videoLogin');
-
-                    videoBox.style.transform = 'translate(0%)';
-                    videoLogin.play();
-
-                    setTimeout(function() {
-                        window.location.href = 'Inicio.html';
-                    }, 3000);
-                </script>";
+                echo json_encode($response);
             }
+
+            // Cerrar la declaración
+            $stmt->close();
+
+        } catch (Exception $e) {
+            // Responder con un mensaje de error en JSON
+            echo json_encode([
+                "status" => "error",
+                "message" => $e->getMessage()
+            ]);
         }
-
-        // Cerrar la declaración
-        $stmt->close();
-
-    } catch (Exception $e) {
-        echo "Error: " . $e->getMessage();
+    } else {
+        echo json_encode([
+            "status" => "error",
+            "message" => "Faltan parámetros en la solicitud."
+        ]);
     }
 }
-?>
 
-</body>
-</html>
+?>
