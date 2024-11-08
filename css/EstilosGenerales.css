@@ -1,6 +1,6 @@
 :root{
     --ColorLight: rgb(0, 194, 255);
-    --ColorP1: #0099ff;
+    --ColorP1: #1995dd;
     --ColorP2: #0064a7;
     --ColorS1: #0077fe;
     --ColorS2: #384fff;
@@ -51,7 +51,7 @@ body {
 }
 .separador-lg{
     width: 100%;
-    height: 100px;
+    height: 130px;
     background-color: transparent;
 }
 
@@ -123,6 +123,7 @@ nav>.perfil:hover > .IconUser{
 .IconCompany {
     padding: 5px;
     height: 100%;
+    cursor: pointer;
 }
 
 .LogoContent {
@@ -160,7 +161,12 @@ nav>.perfil:hover > .IconUser{
     background: var(--ColorAlpha1);
     border-radius: 10px;
 }
-
+h4{
+    font-size: 21px;
+    margin: 0;
+    padding: 0px 20px;
+    border: 0;
+}
 
 /*inputs, Botones y Selects*/
 select {
@@ -199,11 +205,16 @@ input[type="button"]:hover, button:hover{
     background-color: var(--ColorP2);
 }
 
+.input-box{
+    margin: 14px;
+}
+.input-box > label{
+    margin-left: 14px;
+}
 .editText{
     width: 100%;
-    max-width: 400px;
     height: 40px;
-    margin: 20px auto;
+    margin: auto;
     padding: 2px 10px;
     padding-left: 2.5rem;
     border: 0;
@@ -240,6 +251,122 @@ input[type="button"]:hover, button:hover{
     right: -13px;
     transform: rotate(11deg);
 }
+.custom-button {
+    max-width: 1000px;
+}
+/* Contenedor principal */
+.menu-lateral {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #fff;
+    width: 100%;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    padding: 50px;
+    position: absolute;
+    max-width: 600px;
+    z-index: 10;
+}
+
+/* Filas principales */
+.main-row {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 78px;
+    align-items: center;
+    width: 100%;
+}
+
+.card {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 10px 8px;
+    padding: 16px 0px;
+    background-color: #00aefe;
+    border-radius: 7px; 
+    cursor: pointer;
+    transition: box-shadow 0.3s ease;
+    text-align: center;
+}
+
+.card:hover {
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.3);
+}
+
+.card img {
+    width: 60px;
+    height: 60px;
+}
+
+.card p {
+    color: #ffffff;
+    font-size: 16px;
+    margin-top: 8px;
+}
+
+/* Línea divisoria */
+.divider {
+    width: 100%;
+    height: 2px;
+    background-color: #00bfff; /* bluelight color */
+    margin-top: 8px;
+}
+
+/* Botón personalizado */
+.custom-button {
+    width: 100%;
+    padding: 12px;
+    margin-top: 12px;
+    background-color: #00aefe;
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.custom-button:hover {
+    background-color: #007fb3;
+}
+
+/* Estilo del Spinner (Dropdown) */
+.custom-spinner {
+    width: 100%;
+    padding: 8px 10px;
+    padding-left: 2.5rem;
+    background-color: var(--ColorP1);
+    color: white;
+    border: none;
+    border-radius: 50px;
+    font-size: 16px;
+    -webkit-appearance: none;
+}
+
+/*Animaciones para el menu*/
+
+@keyframes mostrar {
+    0%{
+        left: -100%;
+    }
+    100%{
+        left: 0;
+    }
+}
+
+@keyframes guardar {
+    0%{
+        left: 0;
+    }
+    100%{
+        left: -100%;
+    }
+}
+
 
 
 

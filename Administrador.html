@@ -1,11 +1,159 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/EstilosGenerales.css">
+    <link rel="stylesheet" href="css/estilosMenu.css">
+    <title>Administrador</title>
 </head>
+
 <body>
-    <h1>Admin</h1>
+    <div class="MyContainer">
+        <nav>
+            <div class="ContentFluid LogoContent">
+                <img class="IconCompany" id="IconCompany" src="img/LogosEmpresa/LOGO-LINE.png" alt="">
+                <img src="img/LogosEmpresa/TEXTO-LOGO.png" class="img-titulo-head"></img>
+            </div>
+            <a class="perfil" href="Login.php">
+                <img class="IconUser" src="img/Icono Usuario.png" alt="">
+                <p class="userText">Usuario</p>
+            </a>
+        </nav>
+    </div>
+
+    <div class="menu-lateral">
+        <div class="main-row">
+            <div class="card">
+                <img src="img/Iconos/gas.png" alt="Gas icon">
+                <p>GAS</p>
+            </div>
+            <div class="card">
+                <img src="img/Iconos/gota.png" alt="Agua icon">
+                <p>AGUA</p>
+            </div>
+            <div class="card">
+                <img src="img/Iconos/rayo.png" alt="Luz icon">
+                <p>LUZ</p>
+            </div>
+        </div>
+        <div class="divider"></div>
+        <div class="separador"></div>
+        <div class="search-container">
+            <div class="search-wrapper">
+                <img class="icon" src="img/Iconos/icon_search.png" alt="">
+                <input type="search" class="search-input" placeholder="Buscar un usuario">
+            </div>
+            
+            <div class="separador"></div>
+            <textarea name="" id=""></textarea>
+        </div>
+    </div>
+    <!--Datos del lado izquierdo-->
+    <div class="container datosCuentas">
+
+        <div class="separador-lg"></div><!--Para dar espacio TOP-->
+
+        <div class="row">
+            <div class="col-sm-12 col-md-6 col-lg-4" id="medidaRealMenu"></div>
+            <div class="col-sm-12 col-md-6 col-lg-4">
+                <h4>DATOS DE USUARIO</h4>
+                <br>
+                <div class="input-box">
+                    <label for="ddlCuenta">Numero de cuenta</label>
+                    <select class="custom-spinner" name="ddlCuenta" id="ddlCuenta">
+                        <option value="">Seleccionar numero de cuenta</option>
+                        <option value="1">Opcion 1</option>
+                        <option value="2">Opcion 2</option>
+                        <option value="3">Opcion 3</option>
+                    </select>
+                </div>
+                <div class="input-box">
+                    <label for="ddlCuenta">Meses vencidos</label>
+                    <input class="editText" placeholder="7 meses vencidos" id="txtMesesVencidos" name="txtMesesVencidos"
+                        disabled>
+                </div>
+                <div class="input-box">
+                    <label for="ddlCuenta">Tipo de contrato</label>
+                    <input class="editText" placeholder="Comercial/domestico" id="txtTipoContrato"
+                        name="txtTipoContrato" disabled>
+                </div>
+                <div class="input-box">
+                    <label for="ddlCuenta">Proximo Vencimiento</label>
+                    <input class="editText" placeholder="Contraseña" id="txtProxVencimiento" name="txtProxVencimiento"
+                        disabled>
+                </div>
+            </div>
+            <div class="col-sm-12 col-md-6 col-lg-4">
+                <div class="form-column">
+                    <div class="textCapsula2">
+                        <button id="sec-btn" class="btn-icon2" onclick="bajaCuenta()">
+                            <img src="img/Iconos/compartimiento.png" alt="Bote de basura">
+                            <span>DAR DE BAJA CUENTA</span>
+                        </button>
+    
+                        <button id="sec-btn" class="btn-icon2" onclick="actualizarDatos()">
+                            <img src="img/Iconos/actualizar.png" alt="Actualizar">
+                            <span>ACTUALIZAR DATOS</span>
+                        </button>
+                    </div>
+                    <input id="btn-menu" type="button" class="editText" value="SUSPENDER SERVICIO" onclick="suspenderServicio()">
+                    <input id="btn-menu" type="button" class="editText" value="APLICAR DESCUENTO" onclick="aplicarDescuento()">
+                    <input id="btn-menu" type="button" class="editText" value="HISTORIAL DE PAGOS" onclick="historialPagos()">
+                    <input id="btn-menu" type="button" class="editText" value="GENERAR RECIBO DE PAGO" onclick="generarRecibo()">
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.11/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <script>
+        const btnMenu = document.getElementById('IconCompany');
+        const medidaRealMenu = document.getElementById('medidaRealMenu');
+        const Menu = document.querySelector('.menu-lateral');
+        var menuAbierto = false;
+
+        btnMenu.addEventListener('click', function () {
+            if (menuAbierto) {
+                Menu.style.animation = "mostrar 0.6s forwards";
+                menuAbierto = false;
+                console.log("se abrio menu");
+            }
+            else {
+                Menu.style.animation = "guardar 1.3s forwards";
+                menuAbierto = true;
+                console.log("se cerro menu");
+            }
+        });
+
+        function sincronizacionDeTamaños() {
+            //saco la medida del tamaño real del menu
+            const medidaReal = medidaRealMenu.offsetWidth;
+            const screenWidth = screen.width;
+
+            if (screenWidth <= 576){
+                Menu.style.maxWidth = `${screenWidth}px`;
+            } else {
+                Menu.style.maxWidth = `${medidaReal}px`;
+            }
+
+            console.log("Medida del column: " + medidaReal)
+            console.log(`medida del menu ${Menu.style.window}px`);
+        }
+
+        // Llamo a la función cuando carga la página
+        sincronizacionDeTamaños();
+
+        // Escucha el evento resize para actualizar en tiempo real
+        window.addEventListener('resize', sincronizacionDeTamaños);
+
+    </script>
 </body>
+
 </html>

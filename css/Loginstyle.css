@@ -111,6 +111,10 @@ form{
 .second-letter{
     color: var(--ColorP1);
 }
+.editText{
+    max-width: 400px;
+    margin: 20px auto;
+}
 
 
 @keyframes moveR{

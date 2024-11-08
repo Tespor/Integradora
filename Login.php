@@ -37,6 +37,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     "status" => "fail",
                     "message" => "Datos incorrectos"
                 ]);
+                
             } else {
                 $response = ["status" => "success"];
 

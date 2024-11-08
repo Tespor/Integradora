@@ -1,0 +1,48 @@
+ /* Contenedor principal para ajustar el 100% de ancho */
+ .search-container {
+    width: 100%;
+    max-width: 600px; /* Máximo ancho opcional */
+    margin: 0 auto; /* Centra el contenedor */
+}
+
+/* Estilos del campo de búsqueda */
+.search-input {
+    width: 100%;
+    padding: 10px 15px 10px 40px; /* Espacio para el icono */
+    font-size: 16px;
+    color: #ffffff;
+    background-color: #00b8ff;
+    border: none;
+    border-radius: 25px;
+    outline: none;
+    box-sizing: border-box;
+}
+
+/* Icono de búsqueda */
+.search-container .icon {
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 18px;
+    color: #ffffff;
+    width: 20px;
+}
+
+.search-container textarea {
+    width: 100%;
+    border-radius: 8px;
+    border: var(--ColorP1) solid 4px;
+    height: 300px;
+    max-height: 500px;
+}
+
+/* Estilos para el contenedor de icono e input */
+.search-wrapper {
+    position: relative;
+    width: 100%;
+}
+
+.search-input::placeholder {
+    color: #ffffffce;
+}
