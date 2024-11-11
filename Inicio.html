@@ -4,18 +4,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!--Bootstrap-->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="css/EstilosGenerales.css">
-    <title>Pago En Linea</title>
+    <link rel="stylesheet" href="css/estilosMenu.css">
+    <title>Inicio</title>
 </head>
 
 <body>
     <div class="MyContainer">
         <nav>
             <div class="ContentFluid LogoContent">
-                <img class="IconCompany" src="img/LogosEmpresa/LOGO-LINE.png" alt="">
-                <img src="img/LogosEmpresa/TEXTO-LOGO.png" class="img-titulo-head"></img>
+                <img class="IconCompany" id="IconCompany" src="img/LogosEmpresa/LOGO-LINE.png" alt="">
+                <div id="headMenu">
+                    <img src="img/LogosEmpresa/TEXTO-LOGO.png" class="img-titulo-head"></img>
+                </div>
             </div>
             <a class="perfil" href="Login.php">
                 <img class="IconUser" src="img/Icono Usuario.png" alt="">
@@ -24,64 +26,119 @@
         </nav>
     </div>
 
-    <div class="separador-lg"></div>
-
-    <div class="container">
-
+    <div class="menu-lateral">
+        <div class="main-row">
+            <div class="card">
+                <img src="img/Iconos/icon_fire.png" alt="Gas icon">
+                <p>GAS</p>
+            </div>
+            <div class="card">
+                <img src="img/Iconos/gota.png" alt="Agua icon">
+                <p>AGUA</p>
+            </div>
+            <div class="card">
+                <img src="img/Iconos/rayo.png" alt="Luz icon">
+                <p>LUZ</p>
+            </div>
+        </div>
         <div class="separador"></div>
-
-        <div class="row">
-
-            <div class="col-sm-12 col-md-6 centerY">
-                <h3 class="text-uppercase titulo">Saldos pendientes:</h3>
-            </div>
-            <div class="col-sm-12 col-md-6 centerY">
-                <select class="text-uppercase" name="" id="">
-                    <option value="">seleccionar un folio</option>
-                    <option value="1">Opcion 1</option>
-                    <option value="2">Opcion 2</option>
-                    <option value="3">Opcion 3</option>
-                </select>
-            </div>
-        </div>
-
-        <div class="lineX"></div>
-
-        <div class="row">
-
-            <div class="col-6">
-                <h6 class="text-uppercase centerY">nombre del titular:</h6>
-            </div>
-            <div class="col-6">
-                <p class="text-uppercase textCapsula">${{Nombre Completo}}</p>
-            </div>
-
-            <div class="col-6">
-                <h6 class="text-uppercase">Fecha de vencimiento:</h6>
-            </div>
-            <div class="col-6">
-                <p class="text-uppercase textCapsula">${{Fecha Vencimiento}}</p>
-            </div>
-
-            <div class="col-6">
-                <h6 class="text-uppercase">Total a pagar:</h6>
-            </div>
-            <div class="col-6">
-                <p class="text-uppercase textCapsula">${{Total Pagar}}</p>
-            </div>
-
-        </div>
-        <div class="row">
-            <div class="col-12">
-                <input type="button" value="PAGAR">
-            </div>
+        <div class="search-container">
+            <input id="btn-menu" type="button" value="REGISTRAR UNA CUENTA">
+            <div class="divider"></div>
+            <label for="ddlCuenta">Numero de cuenta</label>
+            <select class="custom-spinner" name="ddlCuenta" id="ddlCuenta">
+                <option value="">Seleccionar una cuenta</option>
+                <option value="1">Opcion 1</option>
+                <option value="2">Opcion 2</option>
+                <option value="3">Opcion 3</option>
+            </select>
         </div>
     </div>
+    <!--Datos del lado izquierdo-->
+    <div class="container datosCuentas">
 
-    
+        <div class="separador-lg"></div><!--Para dar espacio TOP-->
+
+        <div class="row">
+            <div class="col-sm-12 col-md-6 col-lg-4" id="columnaGuia"></div>
+            <div class="col-sm-12 col-md-6 col-lg-8">
+
+                <h4>DATOS DE LA CUENTA</h4>
+                <br>
+
+                <div class="row">
+                    <div class="col-sm-12 col-md-12 col-lg-6">
+                        <div class="cardServ">
+                            <div class="text-icon">
+                                <img src="img/Iconos/icon_calendario.png" alt="Icono">
+                                <h2>MESES VENCIDOS</h2>
+                            </div>
+                            <hr>
+                            <p id="MesesVencidos">NUMERO DE MESES VENCIDOS</p>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-md-12 col-lg-6">
+                        <div class="cardServ">
+                            <div class="text-icon">
+                                <img src="img/Iconos/icon_calendario.png" alt="Icono">
+                                <h2>Proximo Vencimiento</h2>
+                            </div>
+                            <hr>
+                            <p id="ProxVencimiento">Fecha</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-12 col-md-12 col-lg-6">
+                        <div class="cardServ">
+                            <div class="text-icon">
+                                <img src="img/Iconos/icon_calendario.png" alt="Icono">
+                                <h2>Tipo de contrato</h2>
+                            </div>
+                            <hr>
+                            <p id="TipoContrato">Comercial/domestico</p>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-md-12 col-lg-6">
+                        <div class="cardServ">
+                            <div class="text-icon">
+                                <img src="img/Iconos/icon_calendario.png" alt="Icono">
+                                <h2>Consumo del mes</h2>
+                            </div>
+                            <hr>
+                            <p id="ProxVencimiento">Cantidad</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-12 col-md-12 col-lg-6">
+                        <div class="cardServ">
+                            <div class="text-icon">
+                                <img src="img/Iconos/icon_calendario.png" alt="Icono">
+                                <h2>Consumo Promedio</h2>
+                            </div>
+                            <hr>
+                            <p id="ProxVencimiento">CANTIDAD</p>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-md-12 col-lg-6">
+                        <input id="btn-menu" type="button" value="HISTORIAL DE PAGOS">
+                        <input id="btn-menu" type="button" value="PAGAR">
+                        <input id="btn-menu" type="button" value="GENERAR QR DE PAGO">
+                    </div>
+                </div>
+        </div>
+
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.11/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <script src="js/animationMenu.js"></script>
+    <script src="js/comportamientos.js"></script>
 </body>
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.11/dist/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
 </html>

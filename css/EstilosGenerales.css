@@ -1,9 +1,9 @@
 :root{
     --ColorLight: rgb(0, 194, 255);
     --ColorP1: #1995dd;
-    --ColorP2: #0064a7;
-    --ColorS1: #0077fe;
-    --ColorS2: #384fff;
+    --ColorP2: #1270a7;
+    --ColorS1: #00aefe;
+    --ColorS2: #0396da;
     --ColorA: #000;
     --ColorB: #fff;
 
@@ -84,7 +84,7 @@ nav {
     display: flex;
     align-items: center;
     overflow: hidden;
-    border-radius: 25px;
+    border-radius: 50px;
     z-index: 100;
     top: 20px;
     left: 50%;
@@ -132,6 +132,11 @@ nav>.perfil:hover > .IconUser{
     justify-content: center;
     align-items: center;
 }
+#headMenu{
+    height: 100%;
+    width: auto;
+    min-width: 170px;
+}
 
 .img-titulo-head {
     height: 100%;
@@ -161,6 +166,17 @@ nav>.perfil:hover > .IconUser{
     background: var(--ColorAlpha1);
     border-radius: 10px;
 }
+.pTotal{
+    padding: 14px;
+}
+.pTotal h1{
+    margin-left: 14px;
+    font-weight: bolder;
+}
+.pTotal h3{
+    margin-left: 14px;
+    opacity: 0.8;
+}
 h4{
     font-size: 21px;
     margin: 0;
@@ -186,15 +202,42 @@ select:hover{
 select:focus{
     border: 0;
 }
+/*Botones de caja*/
+.btnBox{
+    width: 100%;
+    aspect-ratio: 8 / 6;
+    background-color: var(--ColorP1);
+    border-radius: 8px;
+    margin: auto;
+    display: grid;
+    align-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: 0.4s;
+}
+.btnBox:hover {
+    background-color: var(--ColorP2);
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.3);
+}
+
+.btnBox> img{
+    width: 30%;
+    margin: auto;
+    display: block;
+}
+.btnBox> p{
+    width: 100%;
+    padding: 10px;
+    text-align: center;
+}
 
 input[type="button"], button{
     width: 100%;
-    max-width: 400px;
     height: 40px;
     margin: 20px auto;
     padding: 2px;
     border: 0;
-    background-color: var(--ColorS1);
+    background-color: var(--ColorP1);
     border-radius: 25px;
     color: #fff;
     cursor: pointer;
@@ -203,6 +246,7 @@ input[type="button"], button{
 }
 input[type="button"]:hover, button:hover{
     background-color: var(--ColorP2);
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.3);
 }
 
 .input-box{
@@ -210,6 +254,11 @@ input[type="button"]:hover, button:hover{
 }
 .input-box > label{
     margin-left: 14px;
+}
+label{
+    margin-left: 14px;
+    opacity: 0.7;
+    margin-bottom: 0;
 }
 .editText{
     width: 100%;
@@ -239,81 +288,21 @@ input[type="button"]:hover, button:hover{
     background-color: black;
     position: relative;
     left: 0;
-    padding: 2px;
+    z-index: 2;
 }
 
 .ContentFluid::after {
     content: "";
-    width: 22px;
-    height: 110%;
+    width: 0;
+    height: 0;
+    border-left: 100px solid transparent;
+    border-bottom: 100px solid #000;
+    transform: rotate(180deg);
     position: absolute;
-    background-color: #000;
-    right: -13px;
-    transform: rotate(11deg);
+    right: -90px;
 }
 .custom-button {
     max-width: 1000px;
-}
-/* Contenedor principal */
-.menu-lateral {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    background-color: #fff;
-    width: 100%;
-    height: 100vh;
-    top: 0;
-    left: 0;
-    padding: 50px;
-    position: absolute;
-    max-width: 600px;
-    z-index: 10;
-}
-
-/* Filas principales */
-.main-row {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 78px;
-    align-items: center;
-    width: 100%;
-}
-
-.card {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin: 10px 8px;
-    padding: 16px 0px;
-    background-color: #00aefe;
-    border-radius: 7px; 
-    cursor: pointer;
-    transition: box-shadow 0.3s ease;
-    text-align: center;
-}
-
-.card:hover {
-    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.3);
-}
-
-.card img {
-    width: 60px;
-    height: 60px;
-}
-
-.card p {
-    color: #ffffff;
-    font-size: 16px;
-    margin-top: 8px;
-}
-
-/* Línea divisoria */
-.divider {
-    width: 100%;
-    height: 2px;
-    background-color: #00bfff; /* bluelight color */
-    margin-top: 8px;
 }
 
 /* Botón personalizado */
@@ -346,6 +335,52 @@ input[type="button"]:hover, button:hover{
     font-size: 16px;
     -webkit-appearance: none;
 }
+.custom-spinner:hover{
+    background-color: var(--ColorP2);
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.3);
+}
+/*Contenedores de datos de usuario*/
+
+.cardServ {
+    width: auto;
+    padding: 15px;
+    background-color: var(--ColorAlpha2);
+    border-radius: 10px;
+    color: #ffffff;
+    margin: 14px 14px;
+    text-transform: uppercase;
+}
+.text-icon{
+  display: flex;
+}
+
+.text-icon img {
+    width: 40px;
+    height: 40px;
+    margin-bottom: 10px;
+    padding: 4px;
+}
+
+.cardServ h2 {
+    font-size: 20px;
+    margin: 10px 0;
+    margin-left: 2rem;
+}
+
+.cardServ hr {
+    border: none;
+    height: 1px;
+    background-color: #00aaff; /* Color de la línea */
+    margin: 10px 0;
+    margin-top: 0;
+}
+
+.cardServ p {
+    font-size: 14px;
+    opacity: 0.8;
+    margin-left: 8px;
+}
+
 
 /*Animaciones para el menu*/
 
@@ -366,6 +401,11 @@ input[type="button"]:hover, button:hover{
         left: -100%;
     }
 }
+/*Animaciones para el menu encabezado
+
+#headMenu {
+    transition: width 0.3s ease 0.3s;
+  }*/ 
 
 
 

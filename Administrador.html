@@ -15,7 +15,9 @@
         <nav>
             <div class="ContentFluid LogoContent">
                 <img class="IconCompany" id="IconCompany" src="img/LogosEmpresa/LOGO-LINE.png" alt="">
-                <img src="img/LogosEmpresa/TEXTO-LOGO.png" class="img-titulo-head"></img>
+                <div id="headMenu">
+                    <img src="img/LogosEmpresa/TEXTO-LOGO.png" class="img-titulo-head"></img>
+                </div>
             </div>
             <a class="perfil" href="Login.php">
                 <img class="IconUser" src="img/Icono Usuario.png" alt="">
@@ -27,7 +29,7 @@
     <div class="menu-lateral">
         <div class="main-row">
             <div class="card">
-                <img src="img/Iconos/gas.png" alt="Gas icon">
+                <img src="img/Iconos/icon_fire.png" alt="Gas icon">
                 <p>GAS</p>
             </div>
             <div class="card">
@@ -39,16 +41,31 @@
                 <p>LUZ</p>
             </div>
         </div>
-        <div class="divider"></div>
         <div class="separador"></div>
         <div class="search-container">
             <div class="search-wrapper">
                 <img class="icon" src="img/Iconos/icon_search.png" alt="">
                 <input type="search" class="search-input" placeholder="Buscar un usuario">
             </div>
-            
+
             <div class="separador"></div>
-            <textarea name="" id=""></textarea>
+            <select multiple size="5" class="boxSelect" id="selectDDL">
+                <option value="1">Opción 1</option>
+                <option value="2">Opción 2</option>
+                <option value="3">Opción 3</option>
+                <option value="4">Opción 4</option>
+                <option value="5">Opción 5</option>
+                <option value="1">Opción 6</option>
+                <option value="2">Opción 7</option>
+                <option value="3">Opción 8</option>
+                <option value="4">Opción 9</option>
+                <option value="5">Opción 10</option>
+                <option value="1">Opción 11</option>
+                <option value="2">Opción 12</option>
+                <option value="3">Opción 13</option>
+                <option value="4">Opción 14</option>
+                <option value="5">Opción 15</option>
+            </select>
         </div>
     </div>
     <!--Datos del lado izquierdo-->
@@ -57,52 +74,62 @@
         <div class="separador-lg"></div><!--Para dar espacio TOP-->
 
         <div class="row">
-            <div class="col-sm-12 col-md-6 col-lg-4" id="medidaRealMenu"></div>
-            <div class="col-sm-12 col-md-6 col-lg-4">
-                <h4>DATOS DE USUARIO</h4>
-                <br>
-                <div class="input-box">
-                    <label for="ddlCuenta">Numero de cuenta</label>
-                    <select class="custom-spinner" name="ddlCuenta" id="ddlCuenta">
-                        <option value="">Seleccionar numero de cuenta</option>
-                        <option value="1">Opcion 1</option>
-                        <option value="2">Opcion 2</option>
-                        <option value="3">Opcion 3</option>
-                    </select>
-                </div>
-                <div class="input-box">
-                    <label for="ddlCuenta">Meses vencidos</label>
-                    <input class="editText" placeholder="7 meses vencidos" id="txtMesesVencidos" name="txtMesesVencidos"
-                        disabled>
-                </div>
-                <div class="input-box">
-                    <label for="ddlCuenta">Tipo de contrato</label>
-                    <input class="editText" placeholder="Comercial/domestico" id="txtTipoContrato"
-                        name="txtTipoContrato" disabled>
-                </div>
-                <div class="input-box">
-                    <label for="ddlCuenta">Proximo Vencimiento</label>
-                    <input class="editText" placeholder="Contraseña" id="txtProxVencimiento" name="txtProxVencimiento"
-                        disabled>
-                </div>
-            </div>
-            <div class="col-sm-12 col-md-6 col-lg-4">
-                <div class="form-column">
-                    <div class="textCapsula2">
-                        <button id="sec-btn" class="btn-icon2" onclick="bajaCuenta()">
-                            <img src="img/Iconos/compartimiento.png" alt="Bote de basura">
-                            <span>DAR DE BAJA CUENTA</span>
-                        </button>
-    
-                        <button id="sec-btn" class="btn-icon2" onclick="actualizarDatos()">
-                            <img src="img/Iconos/actualizar.png" alt="Actualizar">
-                            <span>ACTUALIZAR DATOS</span>
-                        </button>
+            <div class="col-sm-12 col-md-6 col-lg-4" id="columnaGuia"></div>
+            <div class="col-sm-12 col-md-6 col-lg-8 position-relative">
+                <div class="row position-relative">
+                    <div class="col-md-12 col-lg-6">
+                        <h4>DATOS DE USUARIO</h4>
+                        <br>
+                        <div class="input-box">
+                            <label for="ddlCuenta">Numero de cuenta</label>
+                            <select class="custom-spinner" name="ddlCuenta" id="ddlCuenta">
+                                <option value="">Seleccionar numero de cuenta</option>
+                                <option value="1">Opcion 1</option>
+                                <option value="2">Opcion 2</option>
+                                <option value="3">Opcion 3</option>
+                            </select>
+                        </div>
+                        <div class="input-box">
+                            <label>Meses vencidos</label>
+                            <input class="editText" placeholder="7 meses vencidos" id="txtMesesVencidos"
+                                name="txtMesesVencidos" disabled>
+                        </div>
+                        <div class="input-box">
+                            <label>Tipo de contrato</label>
+                            <input class="editText" placeholder="Comercial/domestico" id="txtTipoContrato"
+                                name="txtTipoContrato" disabled>
+                        </div>
+                        <div class="input-box">
+                            <label>Proximo Vencimiento</label>
+                            <input class="editText" placeholder="Contraseña" id="txtProxVencimiento"
+                                name="txtProxVencimiento" disabled>
+                        </div>
+                        <div class="pTotal">
+                            <h3>ADEUDO TOTAL</h3>
+                            <h1>1,736</h1>
+                        </div>
                     </div>
-                    <input id="btn-menu" type="button" class="editText" value="SUSPENDER SERVICIO" onclick="suspenderServicio()">
-                    <input id="btn-menu" type="button" class="editText" value="APLICAR DESCUENTO" onclick="aplicarDescuento()">
-                    <input id="btn-menu" type="button" class="editText" value="HISTORIAL DE PAGOS" onclick="historialPagos()">
-                    <input id="btn-menu" type="button" class="editText" value="GENERAR RECIBO DE PAGO" onclick="generarRecibo()">
+                    <!--Parte derecha-->
+                    <div class="col-md-12 col-lg-6">
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="btnBox" onclick="bajaCuenta()">
+                                    <img src="img/Iconos/icon_baja.png">
+                                    <p>DAR DE BAJA CUENTA</p>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="btnBox" onclick="actualizarDatos()">
+                                    <img src="img/Iconos/icon_update.png">
+                                    <p>ACTUALIZAR DATOS</p>
+                                </div>
+                            </div>
+                        </div>
+                        <input id="btn-menu" type="button" value="SUSPENDER SERVICIO">
+                        <input id="btn-menu" type="button" value="APLICAR DESCUENTO">
+                        <input id="btn-menu" type="button" value="HISTORIAL DE PAGOS">
+                        <input id="btn-menu" type="button" value="GENERAR RECIBO DE PAGO">        
+                    </div>
                 </div>
             </div>
         </div>
@@ -113,47 +140,8 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.11/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
-    <script>
-        const btnMenu = document.getElementById('IconCompany');
-        const medidaRealMenu = document.getElementById('medidaRealMenu');
-        const Menu = document.querySelector('.menu-lateral');
-        var menuAbierto = false;
-
-        btnMenu.addEventListener('click', function () {
-            if (menuAbierto) {
-                Menu.style.animation = "mostrar 0.6s forwards";
-                menuAbierto = false;
-                console.log("se abrio menu");
-            }
-            else {
-                Menu.style.animation = "guardar 1.3s forwards";
-                menuAbierto = true;
-                console.log("se cerro menu");
-            }
-        });
-
-        function sincronizacionDeTamaños() {
-            //saco la medida del tamaño real del menu
-            const medidaReal = medidaRealMenu.offsetWidth;
-            const screenWidth = screen.width;
-
-            if (screenWidth <= 576){
-                Menu.style.maxWidth = `${screenWidth}px`;
-            } else {
-                Menu.style.maxWidth = `${medidaReal}px`;
-            }
-
-            console.log("Medida del column: " + medidaReal)
-            console.log(`medida del menu ${Menu.style.window}px`);
-        }
-
-        // Llamo a la función cuando carga la página
-        sincronizacionDeTamaños();
-
-        // Escucha el evento resize para actualizar en tiempo real
-        window.addEventListener('resize', sincronizacionDeTamaños);
-
-    </script>
+    <script src="js/comportamientos.js"></script>
+    <script src="js/animationMenu.js"></script>
 </body>
 
 </html>
