@@ -72,10 +72,10 @@
                         <div class="cardServ">
                             <div class="text-icon">
                                 <img src="img/Iconos/icon_calendario.png" alt="Icono">
-                                <h2>MESES VENCIDOS</h2>
+                                <h2>Estados del servicio</h2>
                             </div>
                             <hr>
-                            <p id="MesesVencidos">NUMERO DE MESES VENCIDOS</p>
+                            <p id="MesesVencidos">Activo / Inactivo</p>
                         </div>
                     </div>
                     
@@ -122,22 +122,34 @@
                         </div>
                     </div>
                     <div class="col-sm-12 col-md-12 col-lg-6">
-                        <input popovertarget="PopHistorial" id="btn-menu" type="button" value="HISTORIAL DE PAGOS" onclick="onClickPopup">
-                        <input popovertarget="PopPagar" id="btn-menu" type="button" value="PAGAR">
-                        <input popovertarget="PopQR" id="btn-menu" type="button" value="GENERAR QR DE PAGO">
+                        <div class="cardServ">
+                            <div class="text-icon">
+                                <img src="img/Iconos/icon_calendario.png" alt="Icono">
+                                <h2>Direccion</h2>
+                            </div>
+                            <hr>
+                            <p id="ProxVencimiento">num, calle, colonia</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12 col-md-12 col-lg-6">
                         <div class="pTotal">
                             <h3>ADEUDO TOTAL</h3>
                             <h1>1,736</h1>
                         </div>
                     </div>
+                    <div class="col-sm-12 col-md-12 col-lg-6">
+                        <input popovertarget="PopHistorial" id="btn-menu" type="button" value="HISTORIAL DE PAGOS" onclick="onClickPopup">
+                        <input popovertarget="PopPagar" id="btn-menu" type="button" value="PAGAR">
+                        <input popovertarget="PopQR" id="btn-menu" type="button" value="GENERAR QR DE PAGO">
+                    </div>
                 </div>
         </div>
-        
+        <!--Modal historial de pago-->
         <div class="contentModal">
             <div class="modalX" id="PopHistorial" popover>
-                <div class="textHeadModal">
-                    <h2>historial de pagos</h2>
-                </div>
+                <h2>historial de pagos</h2>
                 <div class="divider"></div>
                 <p id="ProxVencimiento">Cantidad</p>
                 <p id="ProxVencimiento">Cantidad</p>
@@ -146,11 +158,11 @@
                 <p id="ProxVencimiento">Cantidad</p>
             </div>
         </div>
+
+        <!--Modal historial de pago-->
         <div class="contentModal">
             <div class="modalX" id="PopPagar" popover>
-                <div class="textHeadModal">
-                    <h2>agrega una tarjeta para pagar</h2>
-                </div>
+                <h2>agrega una tarjeta para pagar</h2>
                 <div class="divider"></div>
                 <form id="cardForm">
                     <label for="cardNumber">Número de Tarjeta</label>
@@ -174,11 +186,11 @@
                   </form>
             </div>
         </div>
+
+        <!--Modal QR-->
         <div class="contentModal">
             <div class="modalX" id="PopQR" popover>
-                <div class="textHeadModal">
-                    <h2>escanea el QR</h2>
-                </div>
+                <h2>escanea el QR</h2>
                 <div class="divider"></div>
                 <img src="img/Iconos/icon_document.png" alt="">
             </div>

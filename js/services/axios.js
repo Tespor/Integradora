@@ -20,7 +20,8 @@
             console.error('Error en el inicio de sesión', error);
         });
     });
-    //Servicio Registrar Usuario
+
+    //Servicio Registrar Cliente
     document.querySelector('#registroForm').addEventListener('submit', function (e) {
         e.preventDefault();
     
@@ -56,5 +57,18 @@
         .catch(function (error) {
             console.error('Error en el registro:', error);
         });
+    });
+    
+    //Mostrar datos de la cuenta
+    axios.post('http://localhost/mi_proyecto/mi_archivo.php', {
+        // Aquí puedes enviar datos si es necesario
+        parametro1: 'valor1',
+        parametro2: 'valor2'
+    })
+    .then(response => {
+        console.log(response.data);
+    })
+    .catch(error => {
+        console.error('Error:', error);
     });
     
