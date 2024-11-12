@@ -59,3 +59,27 @@
       
       // Cargar usuarios y cuentas al cargar la página
       window.onload = cargarUsuariosYCuentas;
+
+       
+      // Manejador de cambio en el segundo select para cargar los detalles de la cuenta
+const cuentaSelect = document.getElementById('cuentaDDL');
+cuentaSelect.addEventListener('change', function(event) {
+    const idCuenta = event.target.value;
+    
+    // Si se seleccionó una cuenta, obtener los detalles
+    if (idCuenta) {
+        fetch(`obtener_datos_cuenta.php?idCuenta=${idCuenta}`)
+            .then(response => response.json())
+            .then(data => {
+                // Actualiza los placeholders con los datos obtenidos
+                document.getElementById('txtMesesVencidos').placeholder = `${data.adeudo} `;
+                document.getElementById('txtTipoContrato').placeholder = data.tipoContrato;
+                document.getElementById('txtProxVencimiento').placeholder = data.mensualidad;
+                
+                // Actualiza el total
+                const totalElement = document.querySelector('.pTotal h1');
+                totalElement.textContent = `${data.total}`;
+            })
+            .catch(error => console.error('Error al cargar datos de la cuenta:', error));
+    }
+});
