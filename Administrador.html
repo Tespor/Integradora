@@ -49,23 +49,11 @@
             </div>
 
             <div class="separador"></div>
-            <select multiple size="5" class="boxSelect" id="selectDDL">
-                <option value="1">Opción 1</option>
-                <option value="2">Opción 2</option>
-                <option value="3">Opción 3</option>
-                <option value="4">Opción 4</option>
-                <option value="5">Opción 5</option>
-                <option value="1">Opción 6</option>
-                <option value="2">Opción 7</option>
-                <option value="3">Opción 8</option>
-                <option value="4">Opción 9</option>
-                <option value="5">Opción 10</option>
-                <option value="1">Opción 11</option>
-                <option value="2">Opción 12</option>
-                <option value="3">Opción 13</option>
-                <option value="4">Opción 14</option>
-                <option value="5">Opción 15</option>
-            </select>
+             <!-- Primer select para los nombres de usuario -->
+    <select multiple size="5" class="boxSelect" id="selectDDL"></select>
+    
+
+       
         </div>
     </div>
     <!--Datos del lado izquierdo-->
@@ -82,15 +70,17 @@
                         <br>
                         <div class="input-box">
                             <label for="ddlCuenta">Numero de cuenta</label>
-                            <select class="custom-spinner" name="ddlCuenta" id="ddlCuenta">
-                                <option value="">Seleccionar numero de cuenta</option>
-                                <option value="1">Opcion 1</option>
-                                <option value="2">Opcion 2</option>
-                                <option value="3">Opcion 3</option>
-                            </select>
+                         
+                            
+                            <div class="input-box">
+                                <label for="ddlCuenta">Numero de cuenta</label>
+                                <select class="custom-spinner" name="cuentaDDL" id="cuentaDDL">
+                                    <option value="">Seleccionar numero de cuenta</option>
+                                </select>
+                            </div>
                         </div>
                         <div class="input-box">
-                            <label>Meses vencidos</label>
+                            <label>Mensualidad</label>
                             <input class="editText" placeholder="7 meses vencidos" id="txtMesesVencidos"
                                 name="txtMesesVencidos" disabled>
                         </div>
