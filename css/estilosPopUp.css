@@ -1,0 +1,13 @@
+.modal {
+    opacity: 0;
+    transform: translateY(-100px);
+    transition: opacity 1.3s ease, transform 1.3s ease;
+    background: var(--ColorAlpha2);
+    width: 100%;
+  }
+  
+  /* Estilo cuando el popover está activo */
+  #PopUp:popover {
+    opacity: 1;
+    transform: translateY(0);
+  }

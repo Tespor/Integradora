@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="css/EstilosGenerales.css">
     <link rel="stylesheet" href="css/estilosMenu.css">
+    <link rel="stylesheet" href="css/estilosPopUp.css">
     <title>Inicio</title>
 </head>
 
@@ -77,6 +78,7 @@
                             <p id="MesesVencidos">NUMERO DE MESES VENCIDOS</p>
                         </div>
                     </div>
+                    
                     <div class="col-sm-12 col-md-12 col-lg-6">
                         <div class="cardServ">
                             <div class="text-icon">
@@ -87,9 +89,7 @@
                             <p id="ProxVencimiento">Fecha</p>
                         </div>
                     </div>
-                </div>
 
-                <div class="row">
                     <div class="col-sm-12 col-md-12 col-lg-6">
                         <div class="cardServ">
                             <div class="text-icon">
@@ -110,9 +110,7 @@
                             <p id="ProxVencimiento">Cantidad</p>
                         </div>
                     </div>
-                </div>
 
-                <div class="row">
                     <div class="col-sm-12 col-md-12 col-lg-6">
                         <div class="cardServ">
                             <div class="text-icon">
@@ -124,11 +122,24 @@
                         </div>
                     </div>
                     <div class="col-sm-12 col-md-12 col-lg-6">
-                        <input id="btn-menu" type="button" value="HISTORIAL DE PAGOS">
+                        <input popovertarget="PopUp" id="btn-menu" type="button" value="HISTORIAL DE PAGOS">
                         <input id="btn-menu" type="button" value="PAGAR">
                         <input id="btn-menu" type="button" value="GENERAR QR DE PAGO">
+                        <div class="pTotal">
+                            <h3>ADEUDO TOTAL</h3>
+                            <h1>1,736</h1>
+                        </div>
                     </div>
                 </div>
+        </div>
+
+        <div class="modal" id="PopUp" popover>
+            <div class="text-icon">
+                <img src="img/Iconos/icon_calendario.png" alt="Icono">
+                <h2>Consumo del mes</h2>
+            </div>
+            <hr>
+            <p id="ProxVencimiento">Cantidad</p>
         </div>
 
     </div>

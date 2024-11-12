@@ -1,6 +1,5 @@
 const selectElement = document.getElementById('selectDDL');
 
-// Agregar un listener para el doble clic en el select
 selectElement.addEventListener('dblclick', function(event) {
   const selectedOption = event.target;
 
