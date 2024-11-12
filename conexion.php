@@ -1,7 +1,7 @@
 <?php
 // Conexión a la base de datos
 $host = "localhost";
-$dbname = "Integradora";
+$dbname = "integradora";
 $username = "root";
 $password = "root";
 
