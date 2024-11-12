@@ -8,3 +8,4 @@ selectElement.addEventListener('dblclick', function(event) {
     alert(`Seleccionaste: ${selectedOption.textContent}`);
   }
 });
+  

@@ -122,9 +122,9 @@
                         </div>
                     </div>
                     <div class="col-sm-12 col-md-12 col-lg-6">
-                        <input popovertarget="PopUp" id="btn-menu" type="button" value="HISTORIAL DE PAGOS">
-                        <input id="btn-menu" type="button" value="PAGAR">
-                        <input id="btn-menu" type="button" value="GENERAR QR DE PAGO">
+                        <input popovertarget="PopHistorial" id="btn-menu" type="button" value="HISTORIAL DE PAGOS" onclick="onClickPopup">
+                        <input popovertarget="PopPagar" id="btn-menu" type="button" value="PAGAR">
+                        <input popovertarget="PopQR" id="btn-menu" type="button" value="GENERAR QR DE PAGO">
                         <div class="pTotal">
                             <h3>ADEUDO TOTAL</h3>
                             <h1>1,736</h1>
@@ -132,14 +132,56 @@
                     </div>
                 </div>
         </div>
-
-        <div class="modal" id="PopUp" popover>
-            <div class="text-icon">
-                <img src="img/Iconos/icon_calendario.png" alt="Icono">
-                <h2>Consumo del mes</h2>
+        
+        <div class="contentModal">
+            <div class="modalX" id="PopHistorial" popover>
+                <div class="textHeadModal">
+                    <h2>historial de pagos</h2>
+                </div>
+                <div class="divider"></div>
+                <p id="ProxVencimiento">Cantidad</p>
+                <p id="ProxVencimiento">Cantidad</p>
+                <p id="ProxVencimiento">Cantidad</p>
+                <p id="ProxVencimiento">Cantidad</p>
+                <p id="ProxVencimiento">Cantidad</p>
             </div>
-            <hr>
-            <p id="ProxVencimiento">Cantidad</p>
+        </div>
+        <div class="contentModal">
+            <div class="modalX" id="PopPagar" popover>
+                <div class="textHeadModal">
+                    <h2>agrega una tarjeta para pagar</h2>
+                </div>
+                <div class="divider"></div>
+                <form id="cardForm">
+                    <label for="cardNumber">Número de Tarjeta</label>
+                    <input class="editText2" type="text" id="cardNumber" name="cardNumber" placeholder="1234 5678 9101 1121" maxlength="19" required>
+              
+                    <label for="cardHolder">Nombre del Titular</label>
+                    <input class="editText2" type="text" id="cardHolder" name="cardHolder" placeholder="Nombre Completo" required>
+                    
+                    <div class="row">
+                        <div class="col-sm-12 col-md 6">
+                            <label for="expiryDate">Fecha de Vencimiento</label>
+                            <input class="editText2" type="number" id="expiryDate" name="expiryDate" placeholder="MM/AA" maxlength="5" required>
+                        </div>
+                        <div class="col-sm-12 col-md 6">
+                            <label for="cvv">CVV</label>
+                            <input class="editText2" type="password" id="cvv" name="cvv" placeholder="123" maxlength="3" required>
+                        </div>
+                    </div>
+              
+                    <button type="submit">PAGAR</button>
+                  </form>
+            </div>
+        </div>
+        <div class="contentModal">
+            <div class="modalX" id="PopQR" popover>
+                <div class="textHeadModal">
+                    <h2>escanea el QR</h2>
+                </div>
+                <div class="divider"></div>
+                <img src="img/Iconos/icon_document.png" alt="">
+            </div>
         </div>
 
     </div>
