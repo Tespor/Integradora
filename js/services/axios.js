@@ -11,7 +11,7 @@
         })
         .then(function (response) {
             if (response.data.status === 'success') {
-                window.location.href = response.data.redirect;
+                window.location.href = response.data.endpoint;
             } else {
                 alert(response.data.message);
             }
@@ -59,16 +59,5 @@
         });
     });
     
-    //Mostrar datos de la cuenta
-    axios.post('http://localhost/mi_proyecto/mi_archivo.php', {
-        // Aquí puedes enviar datos si es necesario
-        parametro1: 'valor1',
-        parametro2: 'valor2'
-    })
-    .then(response => {
-        console.log(response.data);
-    })
-    .catch(error => {
-        console.error('Error:', error);
-    });
+    
     

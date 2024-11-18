@@ -1,5 +1,6 @@
 <?php
 
+session_start();
 include 'conexion.php';
 
 // Configurar las cabeceras para recibir y enviar JSON
@@ -18,38 +19,44 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $contrasena_hash = hash('sha256', $contrasena);
 
         try {
-            // Procedimiento almacenado
-            $stmt = $conn->prepare("CALL SpLogin(?, ?, @tx_role)");
-
-            // Pasar los parámetros a la consulta
+            
+            $stmt = $conn->prepare("CALL SpLogin(?, ?, @tx_role, @tx_iduser);");
             $stmt->bind_param("ss", $nombre_usuario, $contrasena_hash);
             $stmt->execute();
 
-            // Obtener el valor de salida (rol de usuario)
-            $result = $conn->query("SELECT @tx_role AS fk_id_rol");
-            $row = $result->fetch_assoc();
+            // out val
+            $resultSelect = $conn->query("SELECT @tx_role AS Rol, @tx_iduser AS IDUsuario;");
+            $rowSelect = $resultSelect->fetch_assoc();
 
-            $id_rol_user = $row['fk_id_rol'];
+            $rol_user = $rowSelect['Rol'];
+            $id_user = $rowSelect['IDUsuario'];
 
-            // Preparar la respuesta JSON según el rol del usuario
-            if ($id_rol_user == -1) {
+            // =========================Comparar datos
+            if ($rol_user  == -1) {
                 echo json_encode([
                     "status" => "fail",
                     "message" => "Datos incorrectos"
                 ]);
                 
             } else {
-                $response = ["status" => "success"];
-
-                if ($id_rol_user == 1) {
-                    $response["role"] = "admin";
-                    $response["redirect"] = "Administrador.html";
-                } elseif ($id_rol_user == 2) {
-                    $response["role"] = "client";
-                    $response["redirect"] = "Inicio.html";
+                $response = [
+                    "status" => "success"
+                ];
+                
+                if ($rol_user == 1) {
+                    $response["iduser"] = "admin";
+                    $response["endpoint"] = "Administrador.html";
+                } elseif ($rol_user == 2) {
+                    $response["role"] = "cliente";
+                    $response["endpoint"] = "Inicio.php";
+                    
                 }
+                $_SESSION['id'] = $id_user;
+                $_SESSION['nombre'] = $nombre_usuario;
+                $_SESSION['rol'] = $response["role"];
 
                 echo json_encode($response);
+
             }
 
             // Cerrar la declaración

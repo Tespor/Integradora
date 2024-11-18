@@ -40,4 +40,3 @@ echo json_encode([
 // Cierra la conexión
 $conn->close();
 ?>
-

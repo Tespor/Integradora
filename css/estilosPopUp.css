@@ -25,6 +25,9 @@
   .modalX:popover {
     background-color: #af040488;
   }
+  .modalX> img{
+    margin: auto;
+  }
 
   .editText2{
     width: 100%;

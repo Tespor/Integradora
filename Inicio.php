@@ -20,9 +20,16 @@
                     <img src="img/LogosEmpresa/TEXTO-LOGO.png" class="img-titulo-head"></img>
                 </div>
             </div>
-            <a class="perfil" href="Login.php">
+            <a class="perfil" id="LogOut">
                 <img class="IconUser" src="img/Icono Usuario.png" alt="">
-                <p class="userText">Usuario</p>
+                <p class="userText">
+                
+                <?php
+                    session_start();
+                    echo $_SESSION['nombre'] ?? 'No disponible';
+                ?>
+
+                </p>
             </a>
         </nav>
     </div>
@@ -44,14 +51,42 @@
         </div>
         <div class="separador"></div>
         <div class="search-container">
-            <input id="btn-menu" type="button" value="REGISTRAR UNA CUENTA">
+
+            <input popovertarget="registroCuentas" id="btn-menu" type="button" value="REGISTRAR UNA CUENTA">
+            <div class="contentModal">
+                <div class="modalX" id="registroCuentas" popover>
+                    <h2>agrega una cuenta a tu sevicio</h2>
+                    <div class="divider"></div>
+                    <form id="cardForm">
+                        <label for="cardNumber">Tipo de contrato</label>
+                        <select class="custom-spinner" name="ddlCuentas" id="ddlTipoContrato">
+                            <option value="1">Comercial</option>
+                            <option value="2">Domestico</option>
+                        </select>
+                        <br>
+                        <br>
+                        <label for="cardHolder">Direccion</label>
+                        <input class="editText2" type="text" id="cardHolder" name="cardHolder" placeholder="Numero, Calle, Colonia" required>
+
+                        <div class="row">
+                            <div class="col-sm-12 col-md 6">
+                                <label for="CuentaActiva">Activo</label>
+                                <input type="radio" name="grupo" value="Activo" id="CuentaActiva">                       
+                            </div>
+                            <div class="col-sm-12 col-md 6">
+                                <label for="CuentaInactiva">Inactivo</label>
+                                <input type="radio" name="grupo" value="Inactivo" id="CuentaInactiva">                       
+                            </div>
+                        </div>
+
+                        <button type="submit">CREAR</button>
+                    </form>
+                </div>
+            </div>
+
             <div class="divider"></div>
             <label for="ddlCuenta">Numero de cuenta</label>
-            <select class="custom-spinner" name="ddlCuenta" id="ddlCuenta">
-                <option value="">Seleccionar una cuenta</option>
-                <option value="1">Opcion 1</option>
-                <option value="2">Opcion 2</option>
-                <option value="3">Opcion 3</option>
+            <select class="custom-spinner" name="ddlCuentas" id="ddlCuentas">
             </select>
         </div>
     </div>
@@ -62,7 +97,7 @@
 
         <div class="row">
             <div class="col-sm-12 col-md-6 col-lg-4" id="columnaGuia"></div>
-            <div class="col-sm-12 col-md-6 col-lg-8">
+            <div class="col-sm-12 col-md-6 col-lg-8" id="DatosDinamicos">
 
                 <h4>DATOS DE LA CUENTA</h4>
                 <br>
@@ -75,7 +110,7 @@
                                 <h2>Estados del servicio</h2>
                             </div>
                             <hr>
-                            <p id="MesesVencidos">Activo / Inactivo</p>
+                            <p id="EstadoServicio">Activo / Inactivo</p>
                         </div>
                     </div>
                     
@@ -107,7 +142,7 @@
                                 <h2>Consumo del mes</h2>
                             </div>
                             <hr>
-                            <p id="ProxVencimiento">Cantidad</p>
+                            <p id="ConsumoMes">Cantidad</p>
                         </div>
                     </div>
 
@@ -118,7 +153,7 @@
                                 <h2>Consumo Promedio</h2>
                             </div>
                             <hr>
-                            <p id="ProxVencimiento">CANTIDAD</p>
+                            <p id="ConsumoProm">CANTIDAD</p>
                         </div>
                     </div>
                     <div class="col-sm-12 col-md-12 col-lg-6">
@@ -128,7 +163,7 @@
                                 <h2>Direccion</h2>
                             </div>
                             <hr>
-                            <p id="ProxVencimiento">num, calle, colonia</p>
+                            <p id="Direccion">num, calle, colonia</p>
                         </div>
                     </div>
                 </div>
@@ -140,7 +175,7 @@
                         </div>
                     </div>
                     <div class="col-sm-12 col-md-12 col-lg-6">
-                        <input popovertarget="PopHistorial" id="btn-menu" type="button" value="HISTORIAL DE PAGOS" onclick="onClickPopup">
+                        <input popovertarget="PopHistorial" id="btn-menu" type="button" value="HISTORIAL DE PAGOS">
                         <input popovertarget="PopPagar" id="btn-menu" type="button" value="PAGAR">
                         <input popovertarget="PopQR" id="btn-menu" type="button" value="GENERAR QR DE PAGO">
                     </div>
@@ -183,7 +218,7 @@
                     </div>
               
                     <button type="submit">PAGAR</button>
-                  </form>
+                </form>
             </div>
         </div>
 
@@ -192,18 +227,21 @@
             <div class="modalX" id="PopQR" popover>
                 <h2>escanea el QR</h2>
                 <div class="divider"></div>
-                <img src="img/Iconos/icon_document.png" alt="">
+                <center>
+                    <img src="img/Iconos/icon_qr.JPG" alt="">
+                </center>
             </div>
         </div>
 
     </div>
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.11/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
     <script src="js/animationMenu.js"></script>
-    <script src="js/comportamientos.js"></script>
+    <script src="js/services/axiosCliente.js"></script>
+    <script src="js/services/logout.js"></script>
 </body>
 
 </html>
