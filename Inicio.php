@@ -57,11 +57,11 @@
                 <div class="modalX" id="registroCuentas" popover>
                     <h2>agrega una cuenta a tu sevicio</h2>
                     <div class="divider"></div>
-                    <form id="cardForm">
+                    <form id="formCuenta">
                         <label for="cardNumber">Tipo de contrato</label>
                         <select class="custom-spinner" name="ddlCuentas" id="ddlTipoContrato">
-                            <option value="1">Comercial</option>
-                            <option value="2">Domestico</option>
+                            <option value="Comercial">Comercial</option>
+                            <option value="Domestico">Domestico</option>
                         </select>
                         <br>
                         <br>
@@ -71,7 +71,7 @@
                         <div class="row">
                             <div class="col-sm-12 col-md 6">
                                 <label for="CuentaActiva">Activo</label>
-                                <input type="radio" name="grupo" value="Activo" id="CuentaActiva">                       
+                                <input type="radio" name="grupo" value="Activo" id="CuentaActiva" required>                       
                             </div>
                             <div class="col-sm-12 col-md 6">
                                 <label for="CuentaInactiva">Inactivo</label>
@@ -110,7 +110,7 @@
                                 <h2>Estados del servicio</h2>
                             </div>
                             <hr>
-                            <p id="EstadoServicio">Activo / Inactivo</p>
+                            <p id="EstadoServicio"></p>
                         </div>
                     </div>
                     
@@ -121,7 +121,7 @@
                                 <h2>Proximo Vencimiento</h2>
                             </div>
                             <hr>
-                            <p id="ProxVencimiento">Fecha</p>
+                            <p id="ProxVencimiento"></p>
                         </div>
                     </div>
 
@@ -132,7 +132,7 @@
                                 <h2>Tipo de contrato</h2>
                             </div>
                             <hr>
-                            <p id="TipoContrato">Comercial/domestico</p>
+                            <p id="TipoContrato"></p>
                         </div>
                     </div>
                     <div class="col-sm-12 col-md-12 col-lg-6">
@@ -142,7 +142,7 @@
                                 <h2>Consumo del mes</h2>
                             </div>
                             <hr>
-                            <p id="ConsumoMes">Cantidad</p>
+                            <p id="ConsumoMes"></p>
                         </div>
                     </div>
 
@@ -153,7 +153,7 @@
                                 <h2>Consumo Promedio</h2>
                             </div>
                             <hr>
-                            <p id="ConsumoProm">CANTIDAD</p>
+                            <p id="ConsumoProm"></p>
                         </div>
                     </div>
                     <div class="col-sm-12 col-md-12 col-lg-6">
@@ -163,7 +163,7 @@
                                 <h2>Direccion</h2>
                             </div>
                             <hr>
-                            <p id="Direccion">num, calle, colonia</p>
+                            <p id="Direccion"></p>
                         </div>
                     </div>
                 </div>
@@ -171,7 +171,7 @@
                     <div class="col-sm-12 col-md-12 col-lg-6">
                         <div class="pTotal">
                             <h3>ADEUDO TOTAL</h3>
-                            <h1>1,736</h1>
+                            <h1 id="adeudoTotalH1"></h1>
                         </div>
                     </div>
                     <div class="col-sm-12 col-md-12 col-lg-6">

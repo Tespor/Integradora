@@ -13,29 +13,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
     $idCuenta = $data->idCuenta;
 
     $SelectCuenta = "
-    SELECT 
-    cuentas.EstadoServicio AS estado_servicio,
-    cuentas.tipoContrato AS tipo_contrato,
-    cuentas.direccion,
-    ROUND(AVG(mensualidad.consumo), 2) AS consumo_promedio,
-    (SELECT consumo 
-     FROM mensualidad 
-     WHERE fkCuenta = cuentas.idCuenta 
-     ORDER BY mensualidad DESC 
-     LIMIT 1) AS consumo_mes_reciente,
-    DATE_ADD((SELECT mensualidad 
-              FROM mensualidad 
-              WHERE fkCuenta = cuentas.idCuenta 
-              ORDER BY mensualidad DESC 
-              LIMIT 1), INTERVAL 1 MONTH) AS proximo_vencimiento
-    FROM 
-        cuentas
-    JOIN 
-        mensualidad ON cuentas.idCuenta = mensualidad.fkCuenta
-    WHERE 
-        cuentas.idCuenta = ?
-    GROUP BY 
-        cuentas.idCuenta;
+    SELECT * 
+    FROM VistaCuentasMensualidades
+    WHERE idCuenta = ?;
     ";
 
     // Preparar y ejecutar la consulta
@@ -46,7 +26,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
     // Obtener el resultado de la consulta
     $resultado = $consulta->get_result();
 
-    // Procesar el resultado
+    // Fragment result
     if ($row = $resultado->fetch_assoc()) {
         $datos = [
             'estado_servicio' => $row['estado_servicio'],
@@ -54,7 +34,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
             'direccion' => $row['direccion'],
             'consumo_promedio' => $row['consumo_promedio'],
             'consumo_mes_reciente' => $row['consumo_mes_reciente'],
-            'proximo_vencimiento' => $row['proximo_vencimiento']
+            'proximo_vencimiento' => $row['proximo_vencimiento'],
+            'adeudo_total' => $row['adeudo_total']
         ];
     } else {
         $datos = ['error' => 'No se encontraron datos para el idCuenta proporcionado'];

@@ -5,6 +5,7 @@ const ProxVencimiento = document.getElementById('ProxVencimiento');
 const ConsumoMes = document.getElementById('ConsumoMes');
 const ConsumoProm = document.getElementById('ConsumoProm');
 const Direccion = document.getElementById('Direccion');
+const AdeudoTotal = document.getElementById('adeudoTotalH1');
 
 //Select options
 const ddlCuentas = document.getElementById('ddlCuentas');
@@ -35,12 +36,39 @@ axios.post('clientePhp/obtenerCuentas.php')
     });
 
 //========Registrar cuenta============//
+document.getElementById('formCuenta').addEventListener('submit', function (event) {
+    event.preventDefault(); // Evitar que el formulario se envíe de manera tradicional
 
+    // Capturar los valores del formulario
+    const tipoContrato = document.getElementById('ddlTipoContrato').value;
+    const direccion = document.getElementById('cardHolder').value;
+    const estadoServicio = document.querySelector('input[name="grupo"]:checked').value;
+
+    // Crear un objeto con los datos del formulario
+    const datos = {
+        tipoContrato: tipoContrato,
+        direccion: direccion,
+        estadoServicio: estadoServicio
+    };
+
+    // Enviar los datos con Axios
+    axios.post('clientePhp/registrarCuentas.php', datos)
+        .then(response => {
+            console.log('Respuesta del servidor:', response.data);
+            alert('Cuenta creada');
+            location.reload();
+
+        })
+        .catch(error => {
+            console.error('Error al enviar los datos:', error);
+            alert('Hubo un problema al crear cuenta');
+        });
+});
 
 
 //========Cuando el select cambie que muestre los datos============//
 ddlCuentas.addEventListener('change', function() {
-    // Obtiene el texto de la opción seleccionada
+    // Texto de la opción seleccionada
     const cuentaSelec = parseInt(ddlCuentas.options[ddlCuentas.selectedIndex].text);
 
     //Mostrar datos de la cuenta
@@ -56,19 +84,15 @@ ddlCuentas.addEventListener('change', function() {
             if (response.data.error) {
                 console.error("Error:", response.data.error);
             } else {
-                console.log("Estado del servicio:", response.data.estado_servicio);
-                console.log("Tipo de contrato:", response.data.tipo_contrato);
-                console.log("Dirección:", response.data.direccion);
-                console.log("Consumo promedio:", response.data.consumo_promedio);
-                console.log("Consumo del mes reciente:", response.data.consumo_mes_reciente);
-                console.log("Próximo vencimiento:", response.data.proximo_vencimiento);
+                d = response.data
 
-                EstadoServicio.textContent = response.data.estado_servicio;
-                TipoContrato.textContent = response.data.tipo_contrato;
-                Direccion.textContent = response.data.direccion;
-                ConsumoProm.textContent = response.data.consumo_promedio + " L";
-                ConsumoMes.textContent = response.data.consumo_mes_reciente;
-                ProxVencimiento.textContent = response.data.proximo_vencimiento;
+                EstadoServicio.textContent = d.estado_servicio;
+                TipoContrato.textContent = d.tipo_contrato;
+                Direccion.textContent = d.direccion;
+                ConsumoProm.textContent = d.consumo_promedio + " L";
+                ConsumoMes.textContent = d.consumo_mes_reciente;
+                ProxVencimiento.textContent = d.proximo_vencimiento;
+                AdeudoTotal.textContent = d.adeudo_total;
             }
         })
         .catch(error => {
