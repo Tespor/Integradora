@@ -7,10 +7,21 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="css/EstilosGenerales.css">
     <link rel="stylesheet" href="css/estilosMenu.css">
+    <link rel="stylesheet" href="css/estilosPopUp.css">
     <title>Administrador</title>
 </head>
 
 <body>
+    <div id="bloqueoVentana" class="bloqueoVentana">
+        <div>
+            <h1>
+                Ventana bloqueda
+            </h1>
+            <p>Multiples ventanas del mismo tipo estan activas</p>
+            <p>Cierra o recarga esta ventana para continua</p>
+        </div>
+    </div>
+
     <div class="MyContainer">
         <nav>
             <div class="ContentFluid LogoContent">
@@ -19,9 +30,12 @@
                     <img src="img/LogosEmpresa/TEXTO-LOGO.png" class="img-titulo-head"></img>
                 </div>
             </div>
-            <a class="perfil" href="Login.php">
+            <a class="perfil" id="LogOut">
                 <img class="IconUser" src="img/Icono Usuario.png" alt="">
-                <p class="userText">Usuario</p>
+                <p class="userText">
+                    <?php session_start();
+                    echo $_SESSION['nombre'] ?? 'No disponible'; ?>
+                </p>
             </a>
         </nav>
     </div>
@@ -49,11 +63,11 @@
             </div>
 
             <div class="separador"></div>
-             <!-- Primer select para los nombres de usuario -->
-    <select multiple size="5" class="boxSelect" id="selectDDL"></select>
-    
+            <!-- Primer select para los nombres de usuario -->
+            <select multiple size="5" class="boxSelect" id="selectDDL"></select>
 
-       
+
+
         </div>
     </div>
     <!--Datos del lado izquierdo-->
@@ -113,7 +127,7 @@
                         <input id="btn-menu" type="button" value="SUSPENDER SERVICIO">
                         <input id="btn-menu" type="button" value="APLICAR DESCUENTO">
                         <input id="btn-menu" type="button" value="HISTORIAL DE PAGOS">
-                        <input id="btn-menu" type="button" value="GENERAR RECIBO DE PAGO">        
+                        <input id="btn-menu" type="button" value="GENERAR RECIBO DE PAGO">
                     </div>
                 </div>
             </div>
@@ -122,11 +136,13 @@
     </div>
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.11/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
     <script src="js/comportamientos.js"></script>
     <script src="js/animationMenu.js"></script>
+
+    <script src="js/services/logout.js"></script>
 </body>
 
 </html>

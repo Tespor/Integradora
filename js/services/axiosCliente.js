@@ -67,10 +67,15 @@ document.getElementById('formCuenta').addEventListener('submit', function (event
 
 
 //========Cuando el select cambie que muestre los datos============//
+//var para borrar priper option
+var x = true;
 ddlCuentas.addEventListener('change', function() {
     // Texto de la opción seleccionada
     const cuentaSelec = parseInt(ddlCuentas.options[ddlCuentas.selectedIndex].text);
-
+    if(x){
+        ddlCuentas.remove(0);
+        x = false;
+    }
     //Mostrar datos de la cuenta
         axios.post('clientePhp/datosCuenta.php', {idCuenta: cuentaSelec}, 
         {
@@ -82,6 +87,17 @@ ddlCuentas.addEventListener('change', function() {
             console.log(response.data);
 
             if (response.data.error) {
+                d = response.data
+
+                EstadoServicio.textContent = "";
+                TipoContrato.textContent = "";
+                Direccion.textContent = "";
+                ConsumoProm.textContent = "";
+                ConsumoMes.textContent = "";
+                ProxVencimiento.textContent = "";
+                AdeudoTotal.textContent = "";
+
+                alert("Numero de cuenta invalida o no contiene datos");
                 console.error("Error:", response.data.error);
             } else {
                 d = response.data
@@ -92,7 +108,7 @@ ddlCuentas.addEventListener('change', function() {
                 ConsumoProm.textContent = d.consumo_promedio + " L";
                 ConsumoMes.textContent = d.consumo_mes_reciente;
                 ProxVencimiento.textContent = d.proximo_vencimiento;
-                AdeudoTotal.textContent = d.adeudo_total;
+                AdeudoTotal.textContent = "$" + d.adeudo_total;
             }
         })
         .catch(error => {

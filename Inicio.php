@@ -12,25 +12,36 @@
 </head>
 
 <body>
+    <div id="bloqueoVentana" class="bloqueoVentana">
+        <div>
+            <h1>
+                Ventana bloqueda
+            </h1>
+            <p>Multiples ventanas del mismo tipo estan activas</p>
+            <p>Cierra esta ventana y continua en la ventana actual</p>
+        </div>
+    </div>
+
     <div class="MyContainer">
         <nav>
             <div class="ContentFluid LogoContent">
-                <img class="IconCompany" id="IconCompany" src="img/LogosEmpresa/LOGO-LINE.png" alt="">
+                <img class="IconCompany" id="IconCompany" src="img/LogosEmpresa/1-BLNCO.png" alt="">
                 <div id="headMenu">
                     <img src="img/LogosEmpresa/TEXTO-LOGO.png" class="img-titulo-head"></img>
                 </div>
             </div>
-            <a class="perfil" id="LogOut">
+            <div class="perfil">
                 <img class="IconUser" src="img/Icono Usuario.png" alt="">
-                <p class="userText">
-                
-                <?php
-                    session_start();
-                    echo $_SESSION['nombre'] ?? 'No disponible';
-                ?>
-
-                </p>
-            </a>
+                <div id="menuUser">
+                    <p class="userText">
+                        <?php session_start();
+                        echo $_SESSION['nombre'] ?? 'No disponible'; ?>
+                    </p>
+                    <p class="userText" id="LogOut">
+                        Cerrar session
+                    </p>
+                </div>
+            </div>
         </nav>
     </div>
 
@@ -55,7 +66,7 @@
             <input popovertarget="registroCuentas" id="btn-menu" type="button" value="REGISTRAR UNA CUENTA">
             <div class="contentModal">
                 <div class="modalX" id="registroCuentas" popover>
-                    <h2>agrega una cuenta a tu sevicio</h2>
+                    <h2>Agrega una cuenta a tu sevicio</h2>
                     <div class="divider"></div>
                     <form id="formCuenta">
                         <label for="cardNumber">Tipo de contrato</label>
@@ -66,19 +77,18 @@
                         <br>
                         <br>
                         <label for="cardHolder">Direccion</label>
-                        <input class="editText2" type="text" id="cardHolder" name="cardHolder" placeholder="Numero, Calle, Colonia" required>
+                        <input class="editText2" type="text" id="cardHolder" name="cardHolder" placeholder="Numero - Calle - Colonia" required>
 
                         <div class="row">
                             <div class="col-sm-12 col-md 6">
                                 <label for="CuentaActiva">Activo</label>
-                                <input type="radio" name="grupo" value="Activo" id="CuentaActiva" required>                       
+                                <input type="radio" name="grupo" value="Activo" id="CuentaActiva" required>
                             </div>
                             <div class="col-sm-12 col-md 6">
                                 <label for="CuentaInactiva">Inactivo</label>
-                                <input type="radio" name="grupo" value="Inactivo" id="CuentaInactiva">                       
+                                <input type="radio" name="grupo" value="Inactivo" id="CuentaInactiva">
                             </div>
                         </div>
-
                         <button type="submit">CREAR</button>
                     </form>
                 </div>
@@ -113,7 +123,7 @@
                             <p id="EstadoServicio"></p>
                         </div>
                     </div>
-                    
+
                     <div class="col-sm-12 col-md-12 col-lg-6">
                         <div class="cardServ">
                             <div class="text-icon">
@@ -175,73 +185,76 @@
                         </div>
                     </div>
                     <div class="col-sm-12 col-md-12 col-lg-6">
-                        <input popovertarget="PopHistorial" id="btn-menu" type="button" value="HISTORIAL DE PAGOS">
-                        <input popovertarget="PopPagar" id="btn-menu" type="button" value="PAGAR">
-                        <input popovertarget="PopQR" id="btn-menu" type="button" value="GENERAR QR DE PAGO">
+                        <input popovertarget="PopHistorial" type="button" value="HISTORIAL DE PAGOS">
+                        <input popovertarget="PopPagar" type="button" value="PAGAR">
+                        <input popovertarget="PopQR" id="btnQR" type="button" value="GENERAR QR DE PAGO">
                     </div>
                 </div>
-        </div>
-        <!--Modal historial de pago-->
-        <div class="contentModal">
-            <div class="modalX" id="PopHistorial" popover>
-                <h2>historial de pagos</h2>
-                <div class="divider"></div>
-                <p id="ProxVencimiento">Cantidad</p>
-                <p id="ProxVencimiento">Cantidad</p>
-                <p id="ProxVencimiento">Cantidad</p>
-                <p id="ProxVencimiento">Cantidad</p>
-                <p id="ProxVencimiento">Cantidad</p>
             </div>
-        </div>
+            <!--Modal historial de pago-->
+            <div class="contentModal">
+                <div class="modalX" id="PopHistorial" popover>
+                    <h2>historial de pagos</h2>
+                    <div class="divider"></div>
+                    <p id="ProxVencimiento">Cantidad</p>
+                    <p id="ProxVencimiento">Cantidad</p>
+                    <p id="ProxVencimiento">Cantidad</p>
+                    <p id="ProxVencimiento">Cantidad</p>
+                    <p id="ProxVencimiento">Cantidad</p>
+                </div>
+            </div>
 
-        <!--Modal historial de pago-->
-        <div class="contentModal">
-            <div class="modalX" id="PopPagar" popover>
-                <h2>agrega una tarjeta para pagar</h2>
-                <div class="divider"></div>
-                <form id="cardForm">
-                    <label for="cardNumber">Número de Tarjeta</label>
-                    <input class="editText2" type="text" id="cardNumber" name="cardNumber" placeholder="1234 5678 9101 1121" maxlength="19" required>
-              
-                    <label for="cardHolder">Nombre del Titular</label>
-                    <input class="editText2" type="text" id="cardHolder" name="cardHolder" placeholder="Nombre Completo" required>
-                    
-                    <div class="row">
-                        <div class="col-sm-12 col-md 6">
-                            <label for="expiryDate">Fecha de Vencimiento</label>
-                            <input class="editText2" type="number" id="expiryDate" name="expiryDate" placeholder="MM/AA" maxlength="5" required>
+            <!--Modal historial de pago-->
+            <div class="contentModal">
+                <div class="modalX" id="PopPagar" popover>
+                    <h2>agrega una tarjeta para pagar</h2>
+                    <div class="divider"></div>
+                    <form id="cardForm">
+                        <label for="cardNumber">Número de Tarjeta</label>
+                        <input class="editText2" type="number" id="cardNumber" name="cardNumber" placeholder="1234 5678 9101 1121" maxlength="19" required>
+
+                        <label for="cardHolder">Nombre del Titular</label>
+                        <input class="editText2" type="text" id="cardHolder" name="cardHolder" placeholder="Nombre Completo" required>
+
+                        <div class="row">
+                            <div class="col-sm-12 col-md 6">
+                                <label for="expiryDate">Fecha de Vencimiento</label>
+                                <input class="editText2" type="number" id="expiryDate" name="expiryDate" placeholder="MM/AA" maxlength="5" required>
+                            </div>
+                            <div class="col-sm-12 col-md 6">
+                                <label for="cvv">CVV</label>
+                                <input class="editText2" type="password" id="cvv" name="cvv" placeholder="123" maxlength="3" required>
+                            </div>
                         </div>
-                        <div class="col-sm-12 col-md 6">
-                            <label for="cvv">CVV</label>
-                            <input class="editText2" type="password" id="cvv" name="cvv" placeholder="123" maxlength="3" required>
-                        </div>
-                    </div>
-              
-                    <button type="submit">PAGAR</button>
-                </form>
+
+                        <button type="submit">PAGAR</button>
+                    </form>
+                </div>
             </div>
+
+            <!--Modal QR-->
+            <div class="contentModal">
+                <div class="modalX" id="PopQR" popover>
+                    <h2>escanea el QR</h2>
+                    <div class="divider"></div>
+                    <center>
+                        <div id="imgQR"></div>
+                    </center>
+                </div>
+            </div>
+
         </div>
 
-        <!--Modal QR-->
-        <div class="contentModal">
-            <div class="modalX" id="PopQR" popover>
-                <h2>escanea el QR</h2>
-                <div class="divider"></div>
-                <center>
-                    <img src="img/Iconos/icon_qr.JPG" alt="">
-                </center>
-            </div>
-        </div>
-
-    </div>
-
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.11/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <script src="js/animationMenu.js"></script>
-    <script src="js/services/axiosCliente.js"></script>
-    <script src="js/services/logout.js"></script>
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+        <!--CDN para QR-->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+        <!--mis js-->
+        <script src="js/qr_generar.js"></script>
+        <script src="js/animationMenu.js"></script>
+        <script src="js/services/axiosCliente.js"></script>
+        <script src="js/services/logout.js"></script>
 </body>
 
 </html>

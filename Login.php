@@ -40,20 +40,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 
             } else {
                 $response = [
-                    "status" => "success"
+                    "status" => "success",
+                    "usuario" => $nombre_usuario
                 ];
                 
                 if ($rol_user == 1) {
-                    $response["iduser"] = "admin";
-                    $response["endpoint"] = "Administrador.html";
+                    $response["role"] = "admin";
+                    $response["endpoint"] = "Administrador.php";
                 } elseif ($rol_user == 2) {
                     $response["role"] = "cliente";
                     $response["endpoint"] = "Inicio.php";
-                    
                 }
                 $_SESSION['id'] = $id_user;
                 $_SESSION['nombre'] = $nombre_usuario;
-                $_SESSION['rol'] = $response["role"];
+                $_SESSION['rol'] = $rol_user;
 
                 echo json_encode($response);
 

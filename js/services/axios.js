@@ -1,4 +1,5 @@
 //Servicio Login
+var usernameJS = "";
     document.querySelector('form').addEventListener('submit', function (e) {
         e.preventDefault();
 
@@ -11,6 +12,9 @@
         })
         .then(function (response) {
             if (response.data.status === 'success') {
+                usernameJS = response.data.usuario;
+                crearCookie('usuario',usernameJS, 1);
+                crearCookie('token',generateToken(), 1);
                 window.location.href = response.data.endpoint;
             } else {
                 alert(response.data.message);
@@ -59,5 +63,22 @@
         });
     });
     
+
+function crearCookie(nombre, valor, horas) {
+    const fecha = new Date();
+    fecha.setTime(fecha.getTime() + horas * 60 * 60 * 1000);
+    const expires = "expires=" + fecha.toUTCString();
+    document.cookie = `${nombre}=${valor}; ${expires}; path=/`; 
+}
+
+function generateToken() {
+    const randomPart = Math.random().toString(36).substring(2);
+    const timePart = Date.now().toString(36); 
+    return randomPart + timePart;
+}
+
+
+
+
     
     

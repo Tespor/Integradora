@@ -83,7 +83,6 @@ nav {
     position: fixed;
     display: flex;
     align-items: center;
-    overflow: hidden;
     border-radius: 50px;
     z-index: 100;
     top: 20px;
@@ -112,6 +111,11 @@ nav>.perfil:hover > .IconUser{
     margin-left: 40px;
 }
 
+#menuUser{
+    position: absolute;
+    background: var(--ColorAlpha3);
+}
+
 /*Iconos css*/
 .IconUser {
     height: 60%;
@@ -121,7 +125,7 @@ nav>.perfil:hover > .IconUser{
 }
 
 .IconCompany {
-    padding: 5px;
+    padding: 2px;
     height: 100%;
     cursor: pointer;
 }
@@ -131,6 +135,8 @@ nav>.perfil:hover > .IconUser{
     display: flex;
     justify-content: center;
     align-items: center;
+    border-top-left-radius: 50px;
+    border-bottom-left-radius: 50px;
 }
 #headMenu{
     height: 100%;
@@ -295,11 +301,19 @@ label{
     content: "";
     width: 0;
     height: 0;
-    border-left: 100px solid transparent;
-    border-bottom: 100px solid #000;
+    border-left: 60px solid transparent;
+    border-bottom: 60px solid #000;
     transform: rotate(180deg);
     position: absolute;
-    right: -90px;
+    right: -66px;
+}
+.ContentFluid::before {
+    content: "";
+    width: 16px;
+    height: 60px;
+    position: absolute;
+    right: -6px;
+    background-color: #000;
 }
 .custom-button {
     max-width: 1000px;
@@ -381,10 +395,6 @@ label{
     margin-left: 8px;
 }
 
-/*Funciones*/
-.opacity-0{
-    opacity: 0;
-}
 
 
 /*Animaciones para el menu*/
@@ -412,6 +422,23 @@ label{
     transition: width 0.3s ease 0.3s;
   }*/ 
 
+
+.bloqueoVentana{
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: #000000e7;
+    color: #fff;
+    width: 100vw;
+    height: 100vh;
+    z-index: 115;
+    display: grid;
+    justify-content: center;
+    align-items: center;
+}
+.bloqueoVentana > div {
+    text-align: center;
+}
 
 
 

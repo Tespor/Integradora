@@ -38,7 +38,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
             'adeudo_total' => $row['adeudo_total']
         ];
     } else {
-        $datos = ['error' => 'No se encontraron datos para el idCuenta proporcionado'];
+        $datos = ['error' => 'No se encontraron datos para la cuenta seleccionada'];
     }
 
     // Enviar el resultado como json
