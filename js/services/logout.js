@@ -96,14 +96,14 @@ function reiniciarTiempoInactividad() {
     //Iniciar de nuevo el timer con las variables limpias
     AlertCerrarSesion = setTimeout(() => {
         alert('Tu sesion esta a punto de expirar por inactividad');
-    }, 840000)
+    },(13 * 60 * 1000))
 
     activityTimeout = setTimeout(() => {
         borrarCookie('usuario');
         borrarCookie('token');
         eliminarSesionPhp();
         window.location.href = 'index.html';
-    }, 900000);
+    },(15 * 60 * 1000));
 }
 
 // Eventos de actividad del usuario
@@ -134,6 +134,20 @@ function checkActiveSession() {
 
     if (activeSession && activeSession !== sessionId.toString()) {
         document.getElementById('bloqueoVentana').style.display = "grid";
+        // Desactivar eventos de inactividad en la ventana inactiva
+        window.removeEventListener('mousemove', reiniciarTiempoInactividad);
+        window.removeEventListener('keydown', reiniciarTiempoInactividad);
+        window.removeEventListener('click', reiniciarTiempoInactividad);
+        window.removeEventListener('scroll', reiniciarTiempoInactividad);
+        clearTimeout(activityTimeout);
+        clearTimeout(AlertCerrarSesion);
+    } else {
+        // Activar eventos en la ventana activa
+        window.addEventListener('mousemove', reiniciarTiempoInactividad);
+        window.addEventListener('keydown', reiniciarTiempoInactividad);
+        window.addEventListener('click', reiniciarTiempoInactividad);
+        window.addEventListener('scroll', reiniciarTiempoInactividad);
+        reiniciarTiempoInactividad(); // Inicializa el temporizador
     }
 }
 

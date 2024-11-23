@@ -1,6 +1,6 @@
 <?php
 include '../conexion.php';
-// Configurar las cabeceras para recibir y enviar JSON
+
 header("Content-Type: application/json; charset=UTF-8");
 
 

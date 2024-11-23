@@ -12,13 +12,13 @@
 </head>
 
 <body>
-    <div id="bloqueoVentana" class="bloqueoVentana">
+    <div id="bloqueoVentana" class="bloqueoVentana" style="display: none;">
         <div>
             <h1>
                 Ventana bloqueda
             </h1>
             <p>Multiples ventanas del mismo tipo estan activas</p>
-            <p>Cierra o recarga esta ventana para continua</p>
+            <p>Cierra o recarga esta ventana para continuar</p>
         </div>
     </div>
 
@@ -112,13 +112,13 @@
                     <div class="col-md-12 col-lg-6">
                         <div class="row">
                             <div class="col-6">
-                                <div class="btnBox" onclick="bajaCuenta()">
+                                <div class="btnBox">
                                     <img src="img/Iconos/icon_baja.png">
                                     <p>DAR DE BAJA CUENTA</p>
                                 </div>
                             </div>
                             <div class="col-6">
-                                <div class="btnBox" onclick="actualizarDatos()">
+                                <div class="btnBox2">
                                     <img src="img/Iconos/icon_update.png">
                                     <p>ACTUALIZAR DATOS</p>
                                 </div>

@@ -99,6 +99,8 @@ nav>.perfil {
     align-items: center;
     padding: 0 10px;
     transition: 0.6s;
+    border-top-right-radius: 50px;
+    border-bottom-right-radius: 50px;
 }
 
 nav>.perfil:hover{
@@ -111,9 +113,35 @@ nav>.perfil:hover > .IconUser{
     margin-left: 40px;
 }
 
-#menuUser{
+.menuUser{
     position: absolute;
-    background: var(--ColorAlpha3);
+    background: rgba(0, 0, 0, 0.897);
+    top: 70px;
+    right: -200px;
+    opacity: 0;
+    z-index: 1;
+    transition: 0.4s ease-in-out;
+}
+
+.menuUser > hr{
+    margin: 0;
+}
+.menuUser > .btnMenuUser, 
+.menuUser > a,
+.menuUser > div{
+    margin: 0;
+    color: #fff;
+    display: block;
+    padding: 5px 10px;
+    text-transform: uppercase;
+    transition: 0.4s;
+    background: #00000000;
+    border-radius: 0;
+    cursor:pointer;
+}
+.menuUser> .btnMenuUser:hover{
+    background-color: var(--ColorP1);
+    text-decoration: none;
 }
 
 /*Iconos css*/
@@ -196,11 +224,12 @@ select {
     margin: auto;
     padding: 8px 14px;
     border: 0;
-    background-color: var(--ColorS1);
+    background-color: var(--ColorS2);
     border-radius: 25px;
     color: #fff;
     cursor: pointer;
     transition: 0.4s;
+    box-sizing: border-box;
 }
 select:hover{
     background-color: var(--ColorP1);
@@ -208,6 +237,67 @@ select:hover{
 select:focus{
     border: 0;
 }
+
+  select::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  select::-webkit-scrollbar-thumb {
+    border-radius: 4px;
+  }
+
+  select::-webkit-scrollbar-thumb:hover {
+    background: #044186d5; 
+  }
+
+.select2 {
+    width: 100%;
+    margin: auto;
+    padding: 8px 14px;
+    border: 0;
+    background-color: var(--ColorAlpha2);
+    border-radius: 5px;
+    color: #fff;
+    cursor: pointer;
+    transition: 0.4s;
+    box-sizing: border-box;
+}
+.select2:hover{
+    background-color: var(--ColorAlpha3);
+    border: solid var(--ColorP1) 2px;
+}
+.select2:focus{
+    border: solid var(--ColorP1) 2px;
+}
+.select2> option{
+    background-color: var(--ColorAlpha2);
+}
+.select2> option:checked {
+    background-color: var(--ColorP2);
+  }
+
+.btnTransparent{
+    background-color: #00000000;
+    text-transform: uppercase;
+    color: var(--ColorS1);
+    border: solid var(--ColorP1) 2px;
+}
+.btnTransparent:hover{
+    background-color: var(--ColorP1);
+    color: #fff;
+    box-shadow: none;
+}
+.btnRounded{
+    width: auto;
+    display: grid;
+    align-content: center;
+    padding: 10px;
+    margin: 10px;
+}
+.btnRounded> img {
+    width: 20px;
+}
+
 /*Botones de caja*/
 .btnBox{
     width: 100%;
@@ -232,6 +322,27 @@ select:focus{
     display: block;
 }
 .btnBox> p{
+    width: 100%;
+    padding: 10px;
+    text-align: center;
+}
+
+.btnBox2{
+    width: 100%;
+    aspect-ratio: 8 / 6;
+    background-color: rgba(53, 53, 53, 0.774);
+    border-radius: 8px;
+    margin: auto;
+    display: grid;
+    align-content: center;
+    align-items: center;
+}
+.btnBox2> img{
+    width: 30%;
+    margin: auto;
+    display: block;
+}
+.btnBox2> p{
     width: 100%;
     padding: 10px;
     text-align: center;
@@ -381,7 +492,7 @@ label{
     margin-left: 2rem;
 }
 
-.cardServ hr {
+hr {
     border: none;
     height: 1px;
     background-color: #00aaff; /* Color de la línea */
@@ -416,12 +527,97 @@ label{
         left: -100%;
     }
 }
-/*Animaciones para el menu encabezado
-
-#headMenu {
-    transition: width 0.3s ease 0.3s;
-  }*/ 
-
+/*Diseño de las tarjetas*/ 
+#formPagar{
+    width: 100%;
+    font-family: Arial, sans-serif;
+    padding: 10px;
+  }
+  
+  .tarjeta{
+    margin: auto;
+    margin-top: 12px;
+    padding: 15px;
+    border-radius: 8px;
+    width: 100%;
+    max-width: 400px;
+    aspect-ratio: 16 / 9;
+    background: rgb(0,176,218);
+    background: linear-gradient(274deg, rgba(0,176,218,1) 1%, rgba(24,102,143,1) 100%);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    color: #fff;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .chip {
+      width: 13%;
+      height: 15%;
+      background: gold;
+      border-radius: 5px;
+      position: absolute;
+      top: 12%;
+      left: 4%;
+  }
+  
+  .nombreBanco {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      font-size: 18px;
+      font-weight: bold;
+  }
+  
+  .numTarjeta {
+      letter-spacing: 2px;
+      font-size: clamp(1rem, 2.5vw, 2rem);
+      font-family: 'Quicksand', sans-serif;
+      margin-top: 20%;
+  }
+  
+  .expiracion {
+      position: absolute;
+      bottom: 40px;
+      left: 20px;
+      font-size: 14px;
+  }
+  
+  .nomTitular {
+      position: absolute;
+      bottom: 20px;
+      left: 20px;
+      font-size: 14px;
+      text-transform: uppercase;
+  }
+  
+  .tipoTarjeta {
+      position: absolute;
+      bottom: 68px;
+      right: 32px;
+      font-size: 14px;
+      text-transform: capitalize;
+  }
+  
+  .logo {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.2);
+      position: absolute;
+      bottom: 10px;
+      right: 10px;
+  }
+  
+  .logo::after {
+      content: '';
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.2);
+      position: absolute;
+      bottom: 0px;
+      right: 35px;
+  }
 
 .bloqueoVentana{
     position: absolute;

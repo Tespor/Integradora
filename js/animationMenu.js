@@ -1,9 +1,13 @@
 let clicBloqueado;
-
+//menu lateral
 const btnMenu = document.getElementById('IconCompany');
 const columnaGuia = document.getElementById('columnaGuia');
 const Menu = document.querySelector('.menu-lateral');
 const headMenu = document.getElementById('headMenu');
+//Menu usuario lateral
+const menuUser = document.getElementById('menuUser');
+const btnToMenuser = document.getElementById('perfil');
+var menuUserAbierto = false;
 
 
 //Posicion del menu lado derecho
@@ -34,6 +38,10 @@ btnMenu.addEventListener('click', function(){
         Menu.style.animation = `mostrar ${time}ms forwards`;
         menuAbierto = false;
         monitorMenuPosition("abriendo", headPosition, tamañoExtra, time);
+        
+        menuUser.style.right = "-200px";
+        menuUser.style.opacity = "0";
+        menuUserAbierto = !menuUserAbierto;
     }
     else {
         //cierra menu
@@ -117,4 +125,19 @@ sincronizacionDeTamaños();
 // Escucha el evento resize para actualizar en tiempo real
 window.addEventListener('resize', () => {
         sincronizacionDeTamaños();
+});
+
+
+//=============================================================================//
+//                    Menu lateral de usuario al dar click                     //
+//=============================================================================//
+btnToMenuser.addEventListener('click', function(){
+    if (menuUserAbierto){
+        menuUser.style.right = "-200px";
+        menuUser.style.opacity = "0";
+    } else {
+        menuUser.style.right = "5px";
+        menuUser.style.opacity = "1";
+    }
+    menuUserAbierto = !menuUserAbierto;
 });

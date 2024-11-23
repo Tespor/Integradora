@@ -80,7 +80,7 @@ ddlCuentas.addEventListener('change', function() {
         axios.post('clientePhp/datosCuenta.php', {idCuenta: cuentaSelec}, 
         {
             headers: {
-                'Content-Type': 'application/json' // Aseguramos que sea un JSON
+                'Content-Type': 'application/json' 
             }
         })
         .then(response => {
@@ -117,6 +117,122 @@ ddlCuentas.addEventListener('change', function() {
         });
 });
 
-function llenarDatosDeCuenta(){
 
-}
+//=============================================================================//
+//                           Crear nueva tarjeta                               //
+//=============================================================================//
+const formCrearTarjeta = document.getElementById('formCrearTarjetas');
+formCrearTarjeta.addEventListener('submit', function(event){
+    event.preventDefault();
+
+    const dTarjeta = document.getElementById('Tarjeta').value;
+    const dTitular = document.getElementById('Titular').value;
+    const dBanco = document.getElementById('Banco').options[document.getElementById('Banco').selectedIndex].text;
+    const dFechaVencimiento = document.getElementById('FechaVencimiento').value;
+    const dCVV = document.getElementById('CVV').value;
+
+ 
+    const datosTarjetas = {
+        tarjeta: dTarjeta,
+        titular: dTitular,
+        banco: dBanco,
+        vencimiento: dFechaVencimiento,
+        CVV: dCVV
+    };
+
+    axios.post('clientePhp/clienteTarjetas.php', datosTarjetas, {
+        headers: {
+            'Content-Type': 'application/json' 
+        }
+    })
+    .then(respuesta =>{
+        const d = respuesta.data;
+        console.log(respuesta.data);
+
+        if (d.status == 1){
+            // Obtener los elementos de los campos por su ID
+            document.getElementById('Tarjeta').value = "";
+            document.getElementById('Titular').value = ""; 
+            document.getElementById('Banco').selectedIndex = 0; 
+            document.getElementById('FechaVencimiento').value = ""; 
+            document.getElementById('CVV').value = "";
+            
+            document.getElementById('btnNewTarjeta').style.display = "none";
+            document.getElementById('btnOldTarjeta').style.display = "block";
+
+            alert('Tarjeta insertada exitosamente');
+        } else {
+            alert('Tarjeta  no insertada');
+        }
+    })
+    .catch(error =>{
+        alert('Error:' + error);
+    });
+});
+
+
+//=============================================================================//
+//                 Cuando pague con la tarjeta seleccionada                    //
+//=============================================================================//
+const formPagar = document.getElementById('formPagar');
+formPagar.addEventListener('submit', function(event){
+    event.preventDefault();
+    //Cuando de click al boton pagar
+})
+
+//=============================================================================//
+//                   Cuando eliga una tarjeta en el select                     //
+//=============================================================================//
+var arTarjeta = [], arTitular = [], arBanco = [], arVencimiento = [];
+
+const PagarPopUp = document.getElementById('PagarPopUp');
+const ddlTarjeta = document.getElementById('ddlTarjeta');
+
+
+axios.get('clientePhp/clienteTarjetas.php')
+    .then(respuesta => {
+        d = respuesta.data; 
+        console.log(d)
+
+        if(d.consulta == 0){
+            const optionNew = document.createElement('option');
+            optionNew.value = "No existen tarjetas";
+            optionNew.textContent = "No existen tarjetas";
+            ddlTarjeta.appendChild(optionNew);
+        }
+        else{
+            d.forEach(info => {
+                const option = document.createElement('option');
+                option.value = info.numeroTarjeta; 
+                option.textContent = info.numeroTarjeta;
+                ddlTarjeta.appendChild(option);
+
+                arTarjeta.push(info.numeroTarjeta);
+                arTitular.push(info.titular);
+                arBanco.push(info.banco);
+                arVencimiento.push(info.fechaVencimiento);
+            });
+        }
+    })
+    .catch(error => {
+        console.log('Error al obtener los datos de las tarjetas:', error);
+    });
+
+
+//=============================================================================//
+//               Aparecer y desaparecer submenus de tarjetas                   //
+//=============================================================================//
+const btnNewTarjeta = document.getElementById('btnNewTarjeta');
+const btnOldTarjeta = document.getElementById('btnOldTarjeta');
+
+btnNewTarjeta.addEventListener('click', function() {
+    formCrearTarjeta.style.display = "block";
+    formPagar.style.display = "none";
+});
+
+btnOldTarjeta.addEventListener('click', function() {
+    formCrearTarjeta.style.display = "none";
+    formPagar.style.display = "block";
+});
+
+
