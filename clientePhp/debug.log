@@ -1,0 +1,40 @@
+stdClass Object
+(
+    [tarjeta] => 1234 2342 3435 3453
+    [titular] => Pablin Gonzlaez
+    [banco] => Banregio
+    [vencimiento] => 12/34
+    [CVV] => 234
+)
+stdClass Object
+(
+    [tarjeta] => 2114 2353 4534 5345
+    [titular] => Pablin Gonzlaez
+    [banco] => Ci Banco
+    [vencimiento] => 12/34
+    [CVV] => 234
+)
+stdClass Object
+(
+    [tarjeta] => 1123 4223 4324 2344
+    [titular] => Pablin Gonzlaez
+    [banco] => Banco Famsa
+    [vencimiento] => 12/33
+    [CVV] => 123
+)
+stdClass Object
+(
+    [tarjeta] => 1242 3423 5345 3453
+    [titular] => Pablin Gonzlaez
+    [banco] => Nu Mexico
+    [vencimiento] => 12/13
+    [CVV] => 123
+)
+stdClass Object
+(
+    [tarjeta] => 1214 1234 3253 4543
+    [titular] => Pablin Gonzlaez
+    [banco] => Afirme
+    [vencimiento] => 34/53
+    [CVV] => 435
+)

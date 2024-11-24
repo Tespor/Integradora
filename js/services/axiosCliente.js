@@ -69,18 +69,18 @@ document.getElementById('formCuenta').addEventListener('submit', function (event
 //========Cuando el select cambie que muestre los datos============//
 //var para borrar priper option
 var x = true;
-ddlCuentas.addEventListener('change', function() {
+ddlCuentas.addEventListener('change', function () {
     // Texto de la opción seleccionada
     const cuentaSelec = parseInt(ddlCuentas.options[ddlCuentas.selectedIndex].text);
-    if(x){
+    if (x) {
         ddlCuentas.remove(0);
         x = false;
     }
     //Mostrar datos de la cuenta
-        axios.post('clientePhp/datosCuenta.php', {idCuenta: cuentaSelec}, 
+    axios.post('clientePhp/datosCuenta.php', { idCuenta: cuentaSelec },
         {
             headers: {
-                'Content-Type': 'application/json' 
+                'Content-Type': 'application/json'
             }
         })
         .then(response => {
@@ -121,53 +121,77 @@ ddlCuentas.addEventListener('change', function() {
 //=============================================================================//
 //                           Crear nueva tarjeta                               //
 //=============================================================================//
-const formCrearTarjeta = document.getElementById('formCrearTarjetas');
-formCrearTarjeta.addEventListener('submit', function(event){
-    event.preventDefault();
+const dFechaVencimiento = document.getElementById('FechaVencimiento');
+const dTarjeta = document.getElementById('Tarjeta');
 
-    const dTarjeta = document.getElementById('Tarjeta').value;
+//Validacion de datos
+dFechaVencimiento.addEventListener('input', function () {
+    let valor = dFechaVencimiento.value.replace(/\D/g, '');
+        valor = valor.replace(/(.{2})(?=.)/g, '$1/');
+        if (valor.length > 5) {
+            valor = valor.substring(0, 5);
+        }
+        dFechaVencimiento.value = valor;
+});
+
+dTarjeta.addEventListener('input', function () {
+    let valor = dTarjeta.value.replace(/\D/g, '');
+    valor = valor.replace(/(.{4})(?=.)/g, '$1 ');
+
+    if (valor.length > 19) {
+        valor = valor.substring(0, 19);
+    }
+    dTarjeta.value = valor;
+});
+
+
+const formCrearTarjeta = document.getElementById('formCrearTarjetas');
+formCrearTarjeta.addEventListener('submit', function (event) {
+    event.preventDefault();
+    
     const dTitular = document.getElementById('Titular').value;
     const dBanco = document.getElementById('Banco').options[document.getElementById('Banco').selectedIndex].text;
-    const dFechaVencimiento = document.getElementById('FechaVencimiento').value;
     const dCVV = document.getElementById('CVV').value;
 
- 
     const datosTarjetas = {
-        tarjeta: dTarjeta,
+        tarjeta: dTarjeta.value,
         titular: dTitular,
         banco: dBanco,
-        vencimiento: dFechaVencimiento,
+        vencimiento: dFechaVencimiento.value,
         CVV: dCVV
     };
 
+    console.log('Número de tarjeta:', datosTarjetas.tarjeta, 'Longitud:', datosTarjetas.tarjeta.length);
+
     axios.post('clientePhp/clienteTarjetas.php', datosTarjetas, {
         headers: {
-            'Content-Type': 'application/json' 
+            'Content-Type': 'application/json'
         }
     })
-    .then(respuesta =>{
-        const d = respuesta.data;
-        console.log(respuesta.data);
+        .then(respuesta => {
+            const d = respuesta.data;
+            console.log(respuesta.data);
 
-        if (d.status == 1){
-            // Obtener los elementos de los campos por su ID
-            document.getElementById('Tarjeta').value = "";
-            document.getElementById('Titular').value = ""; 
-            document.getElementById('Banco').selectedIndex = 0; 
-            document.getElementById('FechaVencimiento').value = ""; 
-            document.getElementById('CVV').value = "";
-            
-            document.getElementById('btnNewTarjeta').style.display = "none";
-            document.getElementById('btnOldTarjeta').style.display = "block";
+            if (d.status == 1) {
+                // Obtener los elementos de los campos por su ID
+                document.getElementById('Tarjeta').value = "";
+                document.getElementById('Titular').value = "";
+                document.getElementById('Banco').selectedIndex = 0;
+                document.getElementById('FechaVencimiento').value = "";
+                document.getElementById('CVV').value = "";
 
-            alert('Tarjeta insertada exitosamente');
-        } else {
-            alert('Tarjeta  no insertada');
-        }
-    })
-    .catch(error =>{
-        alert('Error:' + error);
-    });
+                formCrearTarjeta.style.display = "none";
+                document.getElementById('formPagar').style.display = "block";
+
+                alert('Tarjeta insertada exitosamente');
+            } else {
+                alert('estado: ' + d.status + '\n message: ' + d.message);
+                console.log(d);
+            }
+        })
+        .catch(error => {
+            alert('Error:' + error);
+        });
 });
 
 
@@ -175,35 +199,41 @@ formCrearTarjeta.addEventListener('submit', function(event){
 //                 Cuando pague con la tarjeta seleccionada                    //
 //=============================================================================//
 const formPagar = document.getElementById('formPagar');
-formPagar.addEventListener('submit', function(event){
+formPagar.addEventListener('submit', function (event) {
     event.preventDefault();
     //Cuando de click al boton pagar
 })
 
 //=============================================================================//
-//                   Cuando eliga una tarjeta en el select                     //
+//                   Cuando elija una tarjeta en el select                     //
 //=============================================================================//
 var arTarjeta = [], arTitular = [], arBanco = [], arVencimiento = [];
 
 const PagarPopUp = document.getElementById('PagarPopUp');
 const ddlTarjeta = document.getElementById('ddlTarjeta');
+var tarjeta = document.getElementById('tarjeta');
 
 
-axios.get('clientePhp/clienteTarjetas.php')
+//Primero Traer los datos
+function traerDatosTarjetas() {
+    axios.get('clientePhp/clienteTarjetas.php')
     .then(respuesta => {
-        d = respuesta.data; 
-        console.log(d)
+        d = respuesta.data;
 
-        if(d.consulta == 0){
+        if (d.consulta == 0) {
             const optionNew = document.createElement('option');
-            optionNew.value = "No existen tarjetas";
-            optionNew.textContent = "No existen tarjetas";
+            optionNew.value = "Agregue una tarjeta";
+            optionNew.textContent = "Agregue una tarjeta";
             ddlTarjeta.appendChild(optionNew);
+
+            tarjeta.style.display = "none";
         }
-        else{
+        else {
             d.forEach(info => {
+                tarjeta.style.display = "block";
+
                 const option = document.createElement('option');
-                option.value = info.numeroTarjeta; 
+                option.value = info.numeroTarjeta;
                 option.textContent = info.numeroTarjeta;
                 ddlTarjeta.appendChild(option);
 
@@ -217,7 +247,38 @@ axios.get('clientePhp/clienteTarjetas.php')
     .catch(error => {
         console.log('Error al obtener los datos de las tarjetas:', error);
     });
+}
+traerDatosTarjetas();
 
+//Despues llenar los datos de la tarjeta
+PagarPopUp.addEventListener('click', function () {
+    llenarDatosTarjeta();
+})
+
+
+//Aqui ya mostramos los datos y su seleccion
+const tBanco = document.getElementById('tBanco');
+const tNum = document.getElementById('tNum');
+const tFV = document.getElementById('tFV');
+const tTitular = document.getElementById('tTitular');
+
+
+
+ddlTarjeta.addEventListener('change', function () {
+    llenarDatosTarjeta();
+});
+
+function llenarDatosTarjeta() {
+    const tarjetaSeleccionada = ddlTarjeta.options[ddlTarjeta.selectedIndex].text;
+    for (let i = 0; i < arTarjeta.length; i++) {
+        if (tarjetaSeleccionada == arTarjeta[i]) {
+            tBanco.textContent = arBanco[i];
+            tNum.textContent = arTarjeta[i];
+            tFV.textContent = arVencimiento[i];
+            tTitular.textContent = arTitular[i];
+        }
+    }
+}
 
 //=============================================================================//
 //               Aparecer y desaparecer submenus de tarjetas                   //
@@ -225,14 +286,64 @@ axios.get('clientePhp/clienteTarjetas.php')
 const btnNewTarjeta = document.getElementById('btnNewTarjeta');
 const btnOldTarjeta = document.getElementById('btnOldTarjeta');
 
-btnNewTarjeta.addEventListener('click', function() {
+btnNewTarjeta.addEventListener('click', function () {
     formCrearTarjeta.style.display = "block";
     formPagar.style.display = "none";
 });
 
-btnOldTarjeta.addEventListener('click', function() {
+btnOldTarjeta.addEventListener('click', function () {
     formCrearTarjeta.style.display = "none";
     formPagar.style.display = "block";
 });
+
+
+
+
+//=============================================================================//
+//                             Eliminar tarjetas                               //
+//=============================================================================//
+const popup = document.getElementById('popup');
+const confirmarBtn = document.getElementById('confirmar');
+const cancelarBtn = document.getElementById('cancelar');
+
+function mostrarPopup() {
+    popup.classList.add('show');
+}
+
+function ocultarPopup() {
+    popup.classList.remove('show');
+}
+
+confirmarBtn.addEventListener('click', () => {
+
+    axios.post('clientePhp/clienteTarjetas.php', {tnum: tNum.textContent}, {
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+        .then(respuesta => {
+            const d = respuesta.data;
+            console.log(respuesta.data);
+
+            if (d.status == 1) {
+                alert('Tarjeta eliminada');
+                location.reload();
+            } else {
+                alert(d.message);
+            }
+        })
+        .catch(error => {
+            alert('Error de consulta:' + error);
+        });
+
+    ocultarPopup();
+});
+
+cancelarBtn.addEventListener('click', () => {
+    ocultarPopup();
+});
+
+document.getElementById('btnBorrarTarjeta').addEventListener('click', mostrarPopup);
+
 
 

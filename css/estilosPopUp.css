@@ -1,3 +1,22 @@
+/*Fondo*/
+.fondoPop {
+  display: none; 
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6); 
+  z-index: 99; 
+}
+
+/* Mostrar el fondo negro cuando esté activo */
+.fondoPop .active {
+  display: block;
+}
+
+
+/*PopOver*/
 .modalX {
     width: auto;
     max-width: 700px;
@@ -7,13 +26,14 @@
     color: #fff;
     text-transform: uppercase;
     border: 0;
+    z-index: 100;
     
     backdrop-filter: blur(3px);
     -webkit-backdrop-filter: blur(3px);
   }
   .modalX> h2 {
     text-align: center;
-    color: var(--ColorP1);
+    color: #fff;
     font-size: 24px;
   }
   #cardForm label{
@@ -49,4 +69,89 @@
   .editText2:focus{
     border: solid 2px var(--ColorS1);
     outline: none;
+}
+
+
+
+/*Pop Up alert de desicion*/
+/* Estilos básicos */
+.popup {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  opacity: 0; 
+  transition: opacity 0.3s ease;
+}
+
+.popup.show {
+  display: flex;
+  opacity: 1;
+}
+
+.popup-content {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 5px;
+  text-align: center;
+  color: var(--ColorS1);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  animation: slideIn 0.3s ease-in-out;
+  text-transform: uppercase;
+}
+
+/* Animación de entrada */
+@keyframes slideIn {
+  from {
+      transform: translateY(-50px);
+      opacity: 0;
+  }
+  to {
+      transform: translateY(0);
+      opacity: 1;
+  }
+}
+
+/* Botones */
+.content-btn{
+  display: flex;
+}
+
+.popup-btn {
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 100%;
+  margin: 10px;
+}
+
+#confirmar {
+  background-color: var(--ColorP1);
+  color: white;
+}
+#confirmar:active{
+  border: 0;
+  outline: 0;
+}
+
+#cancelar {
+  background-color: #00000000;
+  color: var(--ColorS1);
+  border: solid 2px var(--ColorP1);
+}
+#cancelar:active{
+  border: 0;
+  outline: 0;
+}
+
+/* Animación de cierre */
+.popup.hide {
+  opacity: 0;
+  transition: opacity 0.3s ease;
 }

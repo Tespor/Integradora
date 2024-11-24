@@ -8,33 +8,57 @@ header("Content-Type: application/json; charset=UTF-8");
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Decodificar los datos JSON enviados
     $data = json_decode(file_get_contents("php://input"));
+    //file_put_contents('debug.log', print_r($data, true), FILE_APPEND);
 
-    $numTarjeta = $data->tarjeta;
-    $nombreTitular = $data->titular;
-    $banco = $data->banco;
-    $cvv = $data->CVV;
-    $fechaVencimiento = $data->vencimiento;
-    $fkCliente = $_SESSION['id'];
 
-    $query = "CALL Sp_guardarTarjeta(?, ?, ?, ?, ?, ?)";
+    //Solo si va a borrar
+    if (isset($data->tnum)) {
+        $consult = "delete from tarjetas where numeroTarjeta = ? and fk_usuario = ?;";
 
-    if ($stmt = $conn->prepare($query)) {
-        
-        $stmt->bind_param("sssssi", $numTarjeta, $nombreTitular, $banco, $cvv, $fechaVencimiento, $fkCliente);
+        if ($stmt = $conn->prepare($consult)) {
 
-        if ($stmt->execute()) {
-            echo json_encode(['status' => 1, 'message' => 'Tarjeta registrada con éxito']);
+            $stmt->bind_param("si", $data->tnum, $_SESSION['id']);
+
+            if ($stmt->execute()) {
+                echo json_encode(['status' => 1, 'message' => 'Tarjeta eliminada']);
+            } else {
+                echo json_encode(['status' => 0, 'message' => 'Error al eliminar la tarjeta']);
+            }
+
+            $stmt->close();
         } else {
-            echo json_encode(['status' => 0, 'message' => 'Error al registrar la tarjeta']);
+            echo json_encode(['status' => 3, 'message' => 'Error en la consulta']);
         }
 
-        $stmt->close();
-    } else {
-        echo json_encode(['status' => 3, 'message' => 'Error al preparar la consulta']);
-    }
+        $conn->close();
+    } 
+    
+    elseif (isset($data->tarjeta)) {
+        $numTarjeta = $data->tarjeta;
+        $nombreTitular = $data->titular;
+        $banco = $data->banco;
+        $cvv = $data->CVV;
+        $fechaVencimiento = $data->vencimiento;
+        $fkCliente = $_SESSION['id'];
 
-    $conn->close();
-} elseif($_SERVER["REQUEST_METHOD"] == "GET"){
+        $query = "CALL Sp_guardarTarjeta(?, ?, ?, ?, ?, ?)";
+
+        if ($stmt = $conn->prepare($query)) {
+
+            $stmt->bind_param("sssssi", $numTarjeta, $nombreTitular, $banco, $cvv, $fechaVencimiento, $fkCliente);
+
+            if ($stmt->execute()) {
+                echo json_encode(['status' => 1, 'message' => 'Tarjeta registrada con éxito']);
+            } else {
+                echo json_encode(['status' => 0, 'message' => 'Error al registrar la tarjeta']);
+            }
+
+            $stmt->close();
+        } else {
+            echo json_encode(['status' => 3, 'message' => 'Error al preparar la consulta']);
+        }
+    }
+} elseif ($_SERVER["REQUEST_METHOD"] == "GET") {
 
     if (isset($_SESSION['id'])) {
 
@@ -43,32 +67,29 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if ($consulta = $conn->prepare($query)) {
             $consulta->bind_param("i", $_SESSION['id']);
             $consulta->execute();
-            
+
             $resultado = $consulta->get_result();
-            
+
             // Mientras existan datos
             if ($resultado->num_rows > 0) {
                 $tarjetas = [];
-                
+
                 // Recorrer los resultados y almacenarlos en un arreglo
                 while ($fila = $resultado->fetch_assoc()) {
                     $tarjetas[] = $fila;
                 }
-                
+
                 echo json_encode($tarjetas);
             } else {
                 echo json_encode(["consulta" => 0]);
             }
             $consulta->close();
-
         } else {
             echo json_encode(["error" => "Error en la consulta"]);
         }
     } else {
         echo json_encode(["error" => "Usuario no autenticado"]);
-    } 
-}
-else {
+    }
+} else {
     echo json_encode(['error' => 'Método no permitido']);
 }
-?>

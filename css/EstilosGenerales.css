@@ -84,7 +84,7 @@ nav {
     display: flex;
     align-items: center;
     border-radius: 50px;
-    z-index: 100;
+    z-index: 20;
     top: 20px;
     left: 50%;
     transform: translateX(-50%);
@@ -264,19 +264,21 @@ select:focus{
 }
 .select2:hover{
     background-color: var(--ColorAlpha3);
-    border: solid var(--ColorP1) 2px;
+    outline: solid var(--ColorP1) 2px;
 }
 .select2:focus{
-    border: solid var(--ColorP1) 2px;
+    outline: solid var(--ColorP1) 2px;
 }
 .select2> option{
-    background-color: var(--ColorAlpha2);
+    background-color: #000;
 }
 .select2> option:checked {
     background-color: var(--ColorP2);
   }
 
 .btnTransparent{
+    display: block;
+    margin: auto;
     background-color: #00000000;
     text-transform: uppercase;
     color: var(--ColorS1);
@@ -289,13 +291,17 @@ select:focus{
 }
 .btnRounded{
     width: auto;
+    height: auto;
+    aspect-ratio: 1 / 1;
     display: grid;
     align-content: center;
     padding: 10px;
     margin: 10px;
+    position: relative;
 }
 .btnRounded> img {
-    width: 20px;
+    width: 30px;
+    padding: 2px;
 }
 
 /*Botones de caja*/
@@ -536,7 +542,7 @@ hr {
   
   .tarjeta{
     margin: auto;
-    margin-top: 12px;
+    margin-top: 26px;
     padding: 15px;
     border-radius: 8px;
     width: 100%;
@@ -570,7 +576,7 @@ hr {
   
   .numTarjeta {
       letter-spacing: 2px;
-      font-size: clamp(1rem, 2.5vw, 2rem);
+      font-size: clamp(16px, 2.5vw, 22px);
       font-family: 'Quicksand', sans-serif;
       margin-top: 20%;
   }

@@ -70,8 +70,9 @@
         <div class="separador"></div>
         <div class="search-container">
 
-            <input popovertarget="registroCuentas" id="btn-menu" type="button" value="REGISTRAR UNA CUENTA">
-            <div class="contentModal">
+            <!--Modal registrar cuenta-->
+            <div class="popover-container">
+                <input popovertargetaction="show" class="open-popover" popovertarget="registroCuentas" id="btn-menu" type="button" value="REGISTRAR UNA CUENTA">
                 <div class="modalX" id="registroCuentas" popover>
                     <h2>Agrega una cuenta a tu sevicio</h2>
                     <div class="divider"></div>
@@ -192,113 +193,113 @@
                         </div>
                     </div>
                     <div class="col-sm-12 col-md-12 col-lg-6">
-                        <input popovertarget="PopPagar" type="button" id="PagarPopUp" value="PAGAR">
-                        <input popovertarget="PopQR" id="btnQR" type="button" value="GENERAR QR DE PAGO">
+                        <!--Modal de pago-->
+                        <div class="popover-container">
+                            <button popovertargetaction="show" class="open-popover" popovertarget="PopPagar" id="PagarPopUp">PAGAR</button>
+                            <div class="contentModal">
+                                <div class="modalX" id="PopPagar" popover>
+                                    <h2>Pagos de servicio</h2>
+                                    <div class="divider"></div>
+                                    <div class="d-flex">
+                                        <button id="btnBorrarTarjeta" class="btnRounded">
+                                            <img src="img/Iconos/icon_delete.png" alt="">
+                                        </button>
+                                        <!--Alerta de borrar tarjeta-->
+                                        <div id="popup" class="popup">
+                                            <div class="popup-content">
+                                                <p>¿Estás seguro de que deseas eliminar este registro?</p>
+                                                <div class="content-btn">
+                                                    <button id="confirmar" class="popup-btn">OK</button>
+                                                    <button id="cancelar" class="popup-btn">Cancelar</button>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <button id="btnNewTarjeta" class="btnRounded">
+                                            <img src="img/Iconos/icon_+.png" alt="">
+                                        </button>
+                                        <button id="btnOldTarjeta" class="btnTransparent">
+                                            tarjetas registradas
+                                        </button>
+                                    </div>
+
+                                    <form id="formCrearTarjetas" style="display: none;">
+                                        <label for="cardNumber">Número de Tarjeta:</label>
+                                        <input class="editText2" type="text" id="Tarjeta" name="Tarjeta" placeholder="1234 5678 9101 1121" maxlength="19" minlength="16" required>
+
+                                        <label for="cardHolder">Nombre del Titular:</label>
+                                        <input class="editText2" type="text" id="Titular" name="Titular" placeholder="Nombre Completo" required>
+
+                                        <label for="banco">Tipo de banco:</label>
+                                        <select id="Banco" name="Banco" required>
+                                            <option value="" disabled selected>Seleccione un banco</option>
+                                            <option value="bancomer">BBVA Bancomer</option>
+                                            <option value="banamex">Citibanamex</option>
+                                            <option value="santander">Santander</option>
+                                            <option value="banorte">Banorte</option>
+                                            <option value="hsbc">HSBC</option>
+                                            <option value="scotiabank">Scotiabank</option>
+                                            <option value="inbursa">Banco Inbursa</option>
+                                            <option value="bajio">Banco del Bajío</option>
+                                            <option value="azteca">Banco Azteca</option>
+                                            <option value="banregio">Banregio</option>
+                                            <option value="intercam">Nu Mexico</option>
+                                            <option value="banco-famsa">Banco Famsa</option>
+                                            <option value="afirme">Afirme</option>
+                                            <option value="ci-bank">Ci Banco</option>
+                                            <option value="banco-finterra">Banco Finterra</option>
+                                            <option value="bancoppel">Bancoppel</option>
+                                            <option value="compartamos-banco">Compartamos Banco</option>
+                                        </select>
+                                        <br><br>
+
+                                        <div class="row">
+                                            <div class="col-sm-12 col-md 6">
+                                                <label for="expiryDate">Fecha de Vencimiento:</label>
+                                                <input class="editText2" type="text" id="FechaVencimiento" name="FechaVencimiento" placeholder="MM/AA" maxlength="5" required>
+                                            </div>
+                                            <div class="col-sm-12 col-md 6">
+                                                <label for="cvv">CVV:</label>
+                                                <input class="editText2" type="password" id="CVV" name="CVV" placeholder="123" maxlength="3" required>
+                                            </div>
+                                        </div>
+
+                                        <button type="submit">GUARDAR</button>
+                                    </form>
+                                    <form id="formPagar">
+                                        <select name="ddlTarjeta" id="ddlTarjeta" class="select2"></select>
+                                        <div class="tarjeta" id="tarjeta" style="display: none;">
+                                            <div class="chip"></div>
+                                            <div class="nombreBanco" id="tBanco">Banco</div>
+                                            <div class="numTarjeta" id="tNum">0014 6721 3422 1789</div>
+                                            <div class="expiracion">
+                                                <span id="tFV">12/28</span>
+                                            </div>
+                                            <div class="nomTitular" id="tTitular">Name Sure Name</div>
+                                            <div class="tipoTarjeta">Debito</div>
+                                            <div class="logo"></div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="popover-container">
+                            <input popovertargetaction="show" class="open-popover" popovertarget="PopQR" id="btnQR" type="button" value="GENERAR QR DE PAGO">
+                            <!--Modal QR-->
+                            <div class="modalX" id="PopQR" popover>
+                                <h2>escanea el QR</h2>
+                                <div class="divider"></div>
+                                <center>
+                                    <div id="imgQR"></div>
+                                </center>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-            <!--Modal historial de pago-->
-            <div class="contentModal">
-                <div class="modalX" id="PopHistorial" popover>
-                    <h2>historial de pagos</h2>
-                    <div class="divider"></div>
-                    <p id="ProxVencimiento">Cantidad</p>
-                    <p id="ProxVencimiento">Cantidad</p>
-                    <p id="ProxVencimiento">Cantidad</p>
-                    <p id="ProxVencimiento">Cantidad</p>
-                    <p id="ProxVencimiento">Cantidad</p>
-                </div>
-            </div>
 
-            <!--Modal historial de pago-->
-            <div class="contentModal">
-                <div class="modalX" id="PopPagar" popover>
-                    <h2>Pagos de servicio</h2>
-                    <div class="divider"></div>
-                    <div class="d-flex">
-                        <button id="btnBorrarTarjeta" class="btnRounded">
-                            <img src="img/Iconos/icon_delete.png" alt="">
-                        </button>
-                        <button id="btnNewTarjeta" class="btnRounded">
-                            <img src="img/Iconos/icon_+.png" alt="">
-                        </button>
-                        <button id="btnOldTarjeta" class="btnTransparent">
-                            tarjetas registradas
-                        </button>
-                    </div>
 
-                    <form id="formCrearTarjetas" style="display: none;">
-                        <label for="cardNumber">Número de Tarjeta:</label>
-                        <input class="editText2" type="number" id="Tarjeta" name="Tarjeta" placeholder="1234 5678 9101 1121" maxlength="16" required>
-
-                        <label for="cardHolder">Nombre del Titular:</label>
-                        <input class="editText2" type="text" id="Titular" name="Titular" placeholder="Nombre Completo" required>
-
-                        <label for="banco">Tipo de banco:</label>
-                        <select id="Banco" name="Banco" required>
-                            <option value="" disabled selected>Seleccione un banco</option>
-                            <option value="bancomer">BBVA Bancomer</option>
-                            <option value="banamex">Citibanamex</option>
-                            <option value="santander">Santander</option>
-                            <option value="banorte">Banorte</option>
-                            <option value="hsbc">HSBC</option>
-                            <option value="scotiabank">Scotiabank</option>
-                            <option value="inbursa">Banco Inbursa</option>
-                            <option value="bajio">Banco del Bajío</option>
-                            <option value="azteca">Banco Azteca</option>
-                            <option value="banregio">Banregio</option>
-                            <option value="intercam">Intercam Banco</option>
-                            <option value="banco-famsa">Banco Famsa</option>
-                            <option value="afirme">Afirme</option>
-                            <option value="ci-bank">Ci Banco</option>
-                            <option value="banco-finterra">Banco Finterra</option>
-                            <option value="bancoppel">Bancoppel</option>
-                            <option value="compartamos-banco">Compartamos Banco</option>
-                        </select>
-                        <br><br>
-
-                        <div class="row">
-                            <div class="col-sm-12 col-md 6">
-                                <label for="expiryDate">Fecha de Vencimiento:</label>
-                                <input class="editText2" type="number" id="FechaVencimiento" name="FechaVencimiento" placeholder="MM/AA" maxlength="5" required>
-                            </div>
-                            <div class="col-sm-12 col-md 6">
-                                <label for="cvv">CVV:</label>
-                                <input class="editText2" type="password" id="CVV" name="CVV" placeholder="123" maxlength="3" required>
-                            </div>
-                        </div>
-
-                        <button type="submit">GUARDAR</button>
-                    </form>
-                    <form id="formPagar">
-                        <select name="ddlTarjeta" id="ddlTarjeta" class="select2"></select>
-                        <div class="tarjeta">
-                            <div class="chip"></div>
-                            <div class="nombreBanco">Banco</div>
-                            <div class="numTarjeta">0014 6721 3422 1789</div>
-                            <div class="expiracion">
-                                <span>12/28</span>
-                            </div>
-                            <div class="nomTitular">
-                                Name Sure Name
-                            </div>
-                            <div class="tipoTarjeta">Debito</div>
-                            <div class="logo"></div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-
-            <!--Modal QR-->
-            <div class="contentModal">
-                <div class="modalX" id="PopQR" popover>
-                    <h2>escanea el QR</h2>
-                    <div class="divider"></div>
-                    <center>
-                        <div id="imgQR"></div>
-                    </center>
-                </div>
-            </div>
+            <div id="fondoPop" class="fondoPop"></div>
 
         </div>
 
@@ -312,6 +313,7 @@
         <script src="js/animationMenu.js"></script>
         <script src="js/services/axiosCliente.js"></script>
         <script src="js/services/logout.js"></script>
+        <script src="js/PopUp.js"></script>
 </body>
 
 </html>
