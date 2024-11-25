@@ -18,6 +18,7 @@ axios.post('clientePhp/obtenerCuentas.php')
 
         if (data.error) {
             console.error(data.error); // Muestra el error si existe
+            ddlCuentas.innerHTML = '<option value="">Ninguna cuenta existente</option>';
         } else {
             // Limpia el <select> antes de agregar las nuevas opciones
             ddlCuentas.innerHTML = '<option value="">Seleccione una opción</option>';
@@ -34,15 +35,17 @@ axios.post('clientePhp/obtenerCuentas.php')
     .catch(error => {
         console.error("Error al obtener los datos:", error);
     });
+//=============================================================================//
+//                             Registrar cuenta                                //
+//=============================================================================//
 
-//========Registrar cuenta============//
 document.getElementById('formCuenta').addEventListener('submit', function (event) {
     event.preventDefault(); // Evitar que el formulario se envíe de manera tradicional
 
     // Capturar los valores del formulario
     const tipoContrato = document.getElementById('ddlTipoContrato').value;
     const direccion = document.getElementById('cardHolder').value;
-    const estadoServicio = document.querySelector('input[name="grupo"]:checked').value;
+    const estadoServicio = document.querySelector('input[name="select"]:checked').value;
 
     // Crear un objeto con los datos del formulario
     const datos = {
@@ -65,9 +68,10 @@ document.getElementById('formCuenta').addEventListener('submit', function (event
         });
 });
 
-
-//========Cuando el select cambie que muestre los datos============//
-//var para borrar priper option
+//=============================================================================//
+//   Cuando el select cambie que muestre los datos de la cuenta del usuario    //
+//=============================================================================//
+//var para borrar primer option
 var x = true;
 ddlCuentas.addEventListener('change', function () {
     // Texto de la opción seleccionada
@@ -173,6 +177,12 @@ formCrearTarjeta.addEventListener('submit', function (event) {
             console.log(respuesta.data);
 
             if (d.status == 1) {
+                traerDatosTarjetas();
+                setTimeout(() => {
+                    ddlTarjeta.selectedIndex = 0;
+                    llenarDatosTarjeta();
+                }, 500);
+
                 // Obtener los elementos de los campos por su ID
                 document.getElementById('Tarjeta').value = "";
                 document.getElementById('Titular').value = "";
@@ -213,14 +223,16 @@ const PagarPopUp = document.getElementById('PagarPopUp');
 const ddlTarjeta = document.getElementById('ddlTarjeta');
 var tarjeta = document.getElementById('tarjeta');
 
-
 //Primero Traer los datos
 function traerDatosTarjetas() {
+    ddlTarjeta.options.length = 0;
+
     axios.get('clientePhp/clienteTarjetas.php')
     .then(respuesta => {
         d = respuesta.data;
 
         if (d.consulta == 0) {
+            //Al hacer la consulta a la bd y no encuentra tarjetas hace lo sig:
             const optionNew = document.createElement('option');
             optionNew.value = "Agregue una tarjeta";
             optionNew.textContent = "Agregue una tarjeta";
@@ -229,6 +241,12 @@ function traerDatosTarjetas() {
             tarjeta.style.display = "none";
         }
         else {
+            // Vaciar los arrays
+            arBanco = [];
+            arTarjeta = [];
+            arVencimiento = [];
+            arTitular = [];
+            //insertar datos por medio del forEach
             d.forEach(info => {
                 tarjeta.style.display = "block";
 
@@ -253,23 +271,26 @@ traerDatosTarjetas();
 //Despues llenar los datos de la tarjeta
 PagarPopUp.addEventListener('click', function () {
     llenarDatosTarjeta();
-})
+});
 
 
 //Aqui ya mostramos los datos y su seleccion
+//Variables
 const tBanco = document.getElementById('tBanco');
 const tNum = document.getElementById('tNum');
 const tFV = document.getElementById('tFV');
 const tTitular = document.getElementById('tTitular');
 
 
-
+//Cuando haga el select index
 ddlTarjeta.addEventListener('change', function () {
     llenarDatosTarjeta();
 });
 
 function llenarDatosTarjeta() {
+
     const tarjetaSeleccionada = ddlTarjeta.options[ddlTarjeta.selectedIndex].text;
+
     for (let i = 0; i < arTarjeta.length; i++) {
         if (tarjetaSeleccionada == arTarjeta[i]) {
             tBanco.textContent = arBanco[i];
@@ -278,7 +299,7 @@ function llenarDatosTarjeta() {
             tTitular.textContent = arTitular[i];
         }
     }
-}
+};
 
 //=============================================================================//
 //               Aparecer y desaparecer submenus de tarjetas                   //
@@ -307,7 +328,13 @@ const confirmarBtn = document.getElementById('confirmar');
 const cancelarBtn = document.getElementById('cancelar');
 
 function mostrarPopup() {
-    popup.classList.add('show');
+    if(tNum.textContent == ""){
+        alert('No se encontro una tarjeta para eliminar');
+        return;
+    } else {
+        popup.classList.add('show');
+    }
+    
 }
 
 function ocultarPopup() {
@@ -327,7 +354,18 @@ confirmarBtn.addEventListener('click', () => {
 
             if (d.status == 1) {
                 alert('Tarjeta eliminada');
-                location.reload();
+                traerDatosTarjetas();
+                setTimeout(() => {
+                    //ddlTarjeta.selectedIndex = ddlTarjeta.options.length - 1;
+                    ddlTarjeta.selectedIndex = 0;
+                    const selectedText = ddlTarjeta.options[ddlTarjeta.selectedIndex].text;
+
+                    if (/[^0-9]/.test(selectedText)) {
+                        tNum.textContent = "";
+                        console.log("El texto seleccionado contiene al menos un carácter tipo texto o símbolo.");
+                    }
+                    llenarDatosTarjeta();
+                }, 500);
             } else {
                 alert(d.message);
             }

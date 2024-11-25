@@ -63,7 +63,7 @@ function monitorMenuPosition(accion, headPosition, tamañoExtra, time) {
         if (menuPosition >= headPosition) {
             const tiempoTranscurrido = Date.now() - startTime;
             const timeAnimate = time - tiempoTranscurrido;            
-            // Configura la transición y ajusta el padding-right
+            // Configuracion de la transición y ajusta el padding-right
             headMenu.style.transition = `padding-right ${timeAnimate}ms`;
             headMenu.style.paddingRight = "0px";
 
@@ -74,7 +74,7 @@ function monitorMenuPosition(accion, headPosition, tamañoExtra, time) {
         if (accion === "abriendo" && menuPosition < headPosition) {
             const tiempoTranscurrido = Date.now() - startTime;
             const timeAnimate = time - tiempoTranscurrido;            
-            // Configura la transición y ajusta el padding-right a 0
+            // Configuracion de la transición y ajusta el padding-right
             headMenu.style.transition = `padding-right ${timeAnimate}ms ${tiempoTranscurrido}`;
             headMenu.style.paddingRight = `${tamañoExtra}px`;
 
@@ -95,6 +95,7 @@ function sincronizacionDeTamaños() {
         //Dispositivos pequeños
         clicBloqueado = false
         Menu.style.width = "100%";
+        //Poner
     } else {
         //Dispositivos grandes
         clicBloqueado = true

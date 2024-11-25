@@ -89,14 +89,22 @@
 
                         <div class="row">
                             <div class="col-sm-12 col-md 6">
-                                <label for="CuentaActiva">Activo</label>
-                                <input type="radio" name="grupo" value="Activo" id="CuentaActiva" required>
+                                <input type="radio" name="select" id="CuentaActiva" value="Activo" required checked>
+                                <label for="CuentaActiva" class="radio r1">
+                                    <div class="dot"></div>
+                                    <span>Activo</span>
+                                </label>
                             </div>
                             <div class="col-sm-12 col-md 6">
-                                <label for="CuentaInactiva">Inactivo</label>
-                                <input type="radio" name="grupo" value="Inactivo" id="CuentaInactiva">
+                                <input type="radio" name="select" id="CuentaInactiva" value="Inactivo">
+                                <label for="CuentaInactiva" class="radio r2">
+                                    <div class="dot"></div>
+                                    <span>Inactivo</span>
+                                </label>
                             </div>
                         </div>
+                        <br>
+                        <hr>
                         <button type="submit">CREAR</button>
                     </form>
                 </div>
@@ -225,10 +233,10 @@
 
                                     <form id="formCrearTarjetas" style="display: none;">
                                         <label for="cardNumber">Número de Tarjeta:</label>
-                                        <input class="editText2" type="text" id="Tarjeta" name="Tarjeta" placeholder="1234 5678 9101 1121" maxlength="19" minlength="16" required>
+                                        <input class="editText2" type="text" id="Tarjeta" name="Tarjeta" placeholder="1234 5678 9101 1121" maxlength="19" minlength="19" required>
 
                                         <label for="cardHolder">Nombre del Titular:</label>
-                                        <input class="editText2" type="text" id="Titular" name="Titular" placeholder="Nombre Completo" required>
+                                        <input class="editText2" type="text" id="Titular" name="Titular" placeholder="Nombre Completo" maxlength="20" minlength="3" required>
 
                                         <label for="banco">Tipo de banco:</label>
                                         <select id="Banco" name="Banco" required>
@@ -240,27 +248,26 @@
                                             <option value="hsbc">HSBC</option>
                                             <option value="scotiabank">Scotiabank</option>
                                             <option value="inbursa">Banco Inbursa</option>
-                                            <option value="bajio">Banco del Bajío</option>
                                             <option value="azteca">Banco Azteca</option>
                                             <option value="banregio">Banregio</option>
-                                            <option value="intercam">Nu Mexico</option>
+                                            <option value="nu-mexico">Nu Mexico</option>
                                             <option value="banco-famsa">Banco Famsa</option>
                                             <option value="afirme">Afirme</option>
                                             <option value="ci-bank">Ci Banco</option>
                                             <option value="banco-finterra">Banco Finterra</option>
                                             <option value="bancoppel">Bancoppel</option>
-                                            <option value="compartamos-banco">Compartamos Banco</option>
+                                            <option value="compartamos">Compartamos</option>
                                         </select>
                                         <br><br>
 
                                         <div class="row">
                                             <div class="col-sm-12 col-md 6">
                                                 <label for="expiryDate">Fecha de Vencimiento:</label>
-                                                <input class="editText2" type="text" id="FechaVencimiento" name="FechaVencimiento" placeholder="MM/AA" maxlength="5" required>
+                                                <input class="editText2" type="text" id="FechaVencimiento" name="FechaVencimiento" placeholder="MM/AA" maxlength="5" minlength="5" required>
                                             </div>
                                             <div class="col-sm-12 col-md 6">
                                                 <label for="cvv">CVV:</label>
-                                                <input class="editText2" type="password" id="CVV" name="CVV" placeholder="123" maxlength="3" required>
+                                                <input class="editText2" type="password" id="CVV" name="CVV" placeholder="123" maxlength="3" minlength="3" required>
                                             </div>
                                         </div>
 
@@ -270,12 +277,12 @@
                                         <select name="ddlTarjeta" id="ddlTarjeta" class="select2"></select>
                                         <div class="tarjeta" id="tarjeta" style="display: none;">
                                             <div class="chip"></div>
-                                            <div class="nombreBanco" id="tBanco">Banco</div>
-                                            <div class="numTarjeta" id="tNum">0014 6721 3422 1789</div>
+                                            <div class="nombreBanco" id="tBanco"></div>
+                                            <div class="numTarjeta" id="tNum"></div>
                                             <div class="expiracion">
-                                                <span id="tFV">12/28</span>
+                                                <span id="tFV"></span>
                                             </div>
-                                            <div class="nomTitular" id="tTitular">Name Sure Name</div>
+                                            <div class="nomTitular" id="tTitular"></div>
                                             <div class="tipoTarjeta">Debito</div>
                                             <div class="logo"></div>
                                         </div>
