@@ -629,6 +629,7 @@ hr {
       bottom: 0px;
       right: 35px;
   }
+  
 
 .bloqueoVentana{
     position: absolute;
@@ -699,6 +700,15 @@ input[type="radio"]:checked ~ .radio span{
   color: #fff;
 }
 
+/*Invalid button*/
+.invalidar-btn{
+    background-color: var(--ColorAlpha2);
+    cursor: default;
+}
+.invalidar-btn:hover{
+    background-color: var(--ColorAlpha2);
+    box-shadow: none;
+}
 
 
 /* Funcionalidades adapatadas a medidas de pantalla */

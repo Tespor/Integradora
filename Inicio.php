@@ -116,6 +116,7 @@
             </select>
         </div>
     </div>
+
     <!--Datos del lado izquierdo-->
     <div class="container datosCuentas">
 
@@ -125,18 +126,29 @@
             <div class="col-sm-12 col-md-6 col-lg-4" id="columnaGuia"></div>
             <div class="col-sm-12 col-md-6 col-lg-8" id="DatosDinamicos">
 
-                <h4>DATOS DE LA CUENTA</h4>
+                <div class="d-flex text-uppercase">
+                    <h4>DETALLES DE LA CUENTA</h4>
+                </div>
                 <br>
-
                 <div class="row">
                     <div class="col-sm-12 col-md-12 col-lg-6">
                         <div class="cardServ">
                             <div class="text-icon">
                                 <img src="img/Iconos/icon_calendario.png" alt="Icono">
-                                <h2>Estados del servicio</h2>
+                                <h2>Meses Adeudados</h2>
                             </div>
                             <hr>
-                            <p id="EstadoServicio"></p>
+                            <p id="MesesAdeudo"></p>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-md-12 col-lg-6">
+                        <div class="cardServ">
+                            <div class="text-icon">
+                                <img src="img/Iconos/icon_calendario.png" alt="Icono">
+                                <h2>Adeudo actual</h2>
+                            </div>
+                            <hr>
+                            <p id="AdeudoMes"></p>
                         </div>
                     </div>
 
@@ -161,6 +173,18 @@
                             <p id="TipoContrato"></p>
                         </div>
                     </div>
+
+                    <div class="col-sm-12 col-md-12 col-lg-6">
+                        <div class="cardServ">
+                            <div class="text-icon">
+                                <img src="img/Iconos/icon_calendario.png" alt="Icono">
+                                <h2>Estado Del Servicio</h2>
+                            </div>
+                            <hr>
+                            <p id="EstadoServicio"></p>
+                        </div>
+                    </div>
+
                     <div class="col-sm-12 col-md-12 col-lg-6">
                         <div class="cardServ">
                             <div class="text-icon">
@@ -286,6 +310,7 @@
                                             <div class="tipoTarjeta">Debito</div>
                                             <div class="logo"></div>
                                         </div>
+                                        <button type="submit" id="btnPagarFinal">PAGAR</button>
                                     </form>
                                 </div>
                             </div>
@@ -304,10 +329,28 @@
                     </div>
                 </div>
             </div>
+        </div>
+        <div id="fondoPop" class="fondoPop"></div>
 
-
-            <div id="fondoPop" class="fondoPop"></div>
-
+        <!--Recibo-->
+        <div class="recibo" id="recibo">
+            <div class="recibo-header">
+                <img src="img/LogosEmpresa/1-BLNCO.png" alt="">
+                <p>SERVICIO DE <span>AGUA</span></p>
+            </div>
+            <div class="recibo-body">
+                <p>TITULAR DE LA CUENTA: <span class="textos" id="nom_recibo"></span></p>
+                <p>NUMERO DE CUENTA: <span class="textos" id="cuenta_recibo"></span></p>
+                <p>NUMERO DE TRANSACCIÓN: <span class="textos" id="cuenta_recibo"></span></p>
+                <p>MESES PAGADOS: <span class="textos" id="mesespagados_recibo"></span></p>
+                <p>ESTADO: <span class="textos" id="estado_recibo"></span></p>
+                <p>FECHA DEL PAGO: <span class="textos" id="fecha_recibo"></span></p>
+                <div class="divider"></div>
+                <p>CANTIDAD: <span class="textos" id="total_recibo"></span></p>
+            </div>
+            <div class="qr-section">
+                <p class="instruction">COMPROBANTE <br> DE PAGO</p>
+            </div>
         </div>
 
         <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
@@ -315,6 +358,7 @@
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
         <!--CDN para QR-->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.min.js"></script>
         <!--mis js-->
         <script src="js/qr_generar.js"></script>
         <script src="js/animationMenu.js"></script>

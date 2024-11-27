@@ -1,13 +1,34 @@
 //=============CLIENTE=================//
 const EstadoServicio = document.getElementById('EstadoServicio');
+const AdeudoMes = document.getElementById('AdeudoMes');
 const TipoContrato = document.getElementById('TipoContrato');
 const ProxVencimiento = document.getElementById('ProxVencimiento');
 const ConsumoMes = document.getElementById('ConsumoMes');
 const ConsumoProm = document.getElementById('ConsumoProm');
 const Direccion = document.getElementById('Direccion');
 const AdeudoTotal = document.getElementById('adeudoTotalH1');
+const MesesAdeudo = document.getElementById('MesesAdeudo');
+//===========Datos Recibo===============//
+const nom_recibo = document.getElementById('nom_recibo');
+const cuenta_recibo = document.getElementById('cuenta_recibo');
+const mesespagados_recibo = document.getElementById('mesespagados_recibo');
+const estado_recibo = document.getElementById('estado_recibo');
+const fecha_recibo = document.getElementById('fecha_recibo');
+const total_recibo = document.getElementById('total_recibo');
 
-//Select options
+const PagarPopUp = document.getElementById('PagarPopUp');
+const PagarConQr = document.getElementById('btnQR');
+
+PagarPopUp.classList.add('invalidar-btn');
+PagarConQr.classList.add('invalidar-btn');
+
+PagarPopUp.disabled = true;
+PagarPopUp.textContent = "NO DISPONIBLE";
+PagarConQr.style.display = "none";
+
+//=============================================================================//
+//                    Obtener datos al cargar la pagina                        //
+//=============================================================================//
 const ddlCuentas = document.getElementById('ddlCuentas');
 
 // Realiza la solicitud a obtenerDatos.php para obtener los datos
@@ -76,6 +97,8 @@ var x = true;
 ddlCuentas.addEventListener('change', function () {
     // Texto de la opción seleccionada
     const cuentaSelec = parseInt(ddlCuentas.options[ddlCuentas.selectedIndex].text);
+    cuenta_recibo.textContent = cuentaSelec;//Cuenta para rellenar recibo
+
     if (x) {
         ddlCuentas.remove(0);
         x = false;
@@ -94,12 +117,14 @@ ddlCuentas.addEventListener('change', function () {
                 d = response.data
 
                 EstadoServicio.textContent = "";
+                AdeudoMes.textContent = "";
                 TipoContrato.textContent = "";
                 Direccion.textContent = "";
                 ConsumoProm.textContent = "";
                 ConsumoMes.textContent = "";
                 ProxVencimiento.textContent = "";
                 AdeudoTotal.textContent = "";
+                MesesAdeudo.textContent = "";
 
                 alert("Numero de cuenta invalida o no contiene datos");
                 console.error("Error:", response.data.error);
@@ -107,12 +132,37 @@ ddlCuentas.addEventListener('change', function () {
                 d = response.data
 
                 EstadoServicio.textContent = d.estado_servicio;
+                AdeudoMes.textContent = d.adeudo_mes;
                 TipoContrato.textContent = d.tipo_contrato;
                 Direccion.textContent = d.direccion;
                 ConsumoProm.textContent = d.consumo_promedio + " L";
-                ConsumoMes.textContent = d.consumo_mes_reciente;
+                ConsumoMes.textContent = d.consumo_mes_reciente + " L";
                 ProxVencimiento.textContent = d.proximo_vencimiento;
                 AdeudoTotal.textContent = "$" + d.adeudo_total;
+                MesesAdeudo.textContent = d.meses_adeudo;
+
+                //rellenar recibo
+                nom_recibo.textContent = d.nombre_completo;
+                mesespagados_recibo.textContent = d.meses_adeudo;
+                fecha_recibo.textContent = new Date().getDate() + "/" + (new Date().getMonth() + 1) + "/" + new Date().getFullYear();
+                total_recibo.textContent = d.adeudo_total;
+
+                //Validar btns para pagar
+                if (d.estado_servicio == "inactivo") {
+                    PagarPopUp.classList.add('invalidar-btn');
+                    PagarConQr.classList.add('invalidar-btn');
+
+                    PagarPopUp.disabled = true;
+                    PagarPopUp.textContent = "NO DISPONIBLE";
+                    PagarConQr.style.display = "none";
+                } else {
+                    PagarPopUp.classList.remove('invalidar-btn');
+                    PagarConQr.classList.remove('invalidar-btn');
+
+                    PagarPopUp.disabled = false;
+                    PagarPopUp.textContent = "PAGAR";
+                    PagarConQr.style.display = "block";
+                }
             }
         })
         .catch(error => {
@@ -131,11 +181,11 @@ const dTarjeta = document.getElementById('Tarjeta');
 //Validacion de datos
 dFechaVencimiento.addEventListener('input', function () {
     let valor = dFechaVencimiento.value.replace(/\D/g, '');
-        valor = valor.replace(/(.{2})(?=.)/g, '$1/');
-        if (valor.length > 5) {
-            valor = valor.substring(0, 5);
-        }
-        dFechaVencimiento.value = valor;
+    valor = valor.replace(/(.{2})(?=.)/g, '$1/');
+    if (valor.length > 5) {
+        valor = valor.substring(0, 5);
+    }
+    dFechaVencimiento.value = valor;
 });
 
 dTarjeta.addEventListener('input', function () {
@@ -152,7 +202,7 @@ dTarjeta.addEventListener('input', function () {
 const formCrearTarjeta = document.getElementById('formCrearTarjetas');
 formCrearTarjeta.addEventListener('submit', function (event) {
     event.preventDefault();
-    
+
     const dTitular = document.getElementById('Titular').value;
     const dBanco = document.getElementById('Banco').options[document.getElementById('Banco').selectedIndex].text;
     const dCVV = document.getElementById('CVV').value;
@@ -204,22 +254,11 @@ formCrearTarjeta.addEventListener('submit', function (event) {
         });
 });
 
-
-//=============================================================================//
-//                 Cuando pague con la tarjeta seleccionada                    //
-//=============================================================================//
-const formPagar = document.getElementById('formPagar');
-formPagar.addEventListener('submit', function (event) {
-    event.preventDefault();
-    //Cuando de click al boton pagar
-})
-
 //=============================================================================//
 //                   Cuando elija una tarjeta en el select                     //
 //=============================================================================//
 var arTarjeta = [], arTitular = [], arBanco = [], arVencimiento = [];
 
-const PagarPopUp = document.getElementById('PagarPopUp');
 const ddlTarjeta = document.getElementById('ddlTarjeta');
 var tarjeta = document.getElementById('tarjeta');
 
@@ -228,43 +267,43 @@ function traerDatosTarjetas() {
     ddlTarjeta.options.length = 0;
 
     axios.get('clientePhp/clienteTarjetas.php')
-    .then(respuesta => {
-        d = respuesta.data;
+        .then(respuesta => {
+            d = respuesta.data;
 
-        if (d.consulta == 0) {
-            //Al hacer la consulta a la bd y no encuentra tarjetas hace lo sig:
-            const optionNew = document.createElement('option');
-            optionNew.value = "Agregue una tarjeta";
-            optionNew.textContent = "Agregue una tarjeta";
-            ddlTarjeta.appendChild(optionNew);
+            if (d.consulta == 0) {
+                //Al hacer la consulta a la bd y no encuentra tarjetas hace lo sig:
+                const optionNew = document.createElement('option');
+                optionNew.value = "Agregue una tarjeta";
+                optionNew.textContent = "Agregue una tarjeta";
+                ddlTarjeta.appendChild(optionNew);
 
-            tarjeta.style.display = "none";
-        }
-        else {
-            // Vaciar los arrays
-            arBanco = [];
-            arTarjeta = [];
-            arVencimiento = [];
-            arTitular = [];
-            //insertar datos por medio del forEach
-            d.forEach(info => {
-                tarjeta.style.display = "block";
+                tarjeta.style.display = "none";
+            }
+            else {
+                // Vaciar los arrays
+                arBanco = [];
+                arTarjeta = [];
+                arVencimiento = [];
+                arTitular = [];
+                //insertar datos por medio del forEach
+                d.forEach(info => {
+                    tarjeta.style.display = "block";
 
-                const option = document.createElement('option');
-                option.value = info.numeroTarjeta;
-                option.textContent = info.numeroTarjeta;
-                ddlTarjeta.appendChild(option);
+                    const option = document.createElement('option');
+                    option.value = info.numeroTarjeta;
+                    option.textContent = info.numeroTarjeta;
+                    ddlTarjeta.appendChild(option);
 
-                arTarjeta.push(info.numeroTarjeta);
-                arTitular.push(info.titular);
-                arBanco.push(info.banco);
-                arVencimiento.push(info.fechaVencimiento);
-            });
-        }
-    })
-    .catch(error => {
-        console.log('Error al obtener los datos de las tarjetas:', error);
-    });
+                    arTarjeta.push(info.numeroTarjeta);
+                    arTitular.push(info.titular);
+                    arBanco.push(info.banco);
+                    arVencimiento.push(info.fechaVencimiento);
+                });
+            }
+        })
+        .catch(error => {
+            console.log('Error al obtener los datos de las tarjetas:', error);
+        });
 }
 traerDatosTarjetas();
 
@@ -328,13 +367,13 @@ const confirmarBtn = document.getElementById('confirmar');
 const cancelarBtn = document.getElementById('cancelar');
 
 function mostrarPopup() {
-    if(tNum.textContent == ""){
+    if (tNum.textContent == "") {
         alert('No se encontro una tarjeta para eliminar');
         return;
     } else {
         popup.classList.add('show');
     }
-    
+
 }
 
 function ocultarPopup() {
@@ -343,7 +382,7 @@ function ocultarPopup() {
 
 confirmarBtn.addEventListener('click', () => {
 
-    axios.post('clientePhp/clienteTarjetas.php', {tnum: tNum.textContent}, {
+    axios.post('clientePhp/clienteTarjetas.php', { tnum: tNum.textContent }, {
         headers: {
             'Content-Type': 'application/json'
         }
@@ -362,7 +401,7 @@ confirmarBtn.addEventListener('click', () => {
 
                     if (/[^0-9]/.test(selectedText)) {
                         tNum.textContent = "";
-                        console.log("El texto seleccionado contiene al menos un carácter tipo texto o símbolo.");
+                        console.log("No hay tarjetas");
                     }
                     llenarDatosTarjeta();
                 }, 500);
@@ -383,5 +422,47 @@ cancelarBtn.addEventListener('click', () => {
 
 document.getElementById('btnBorrarTarjeta').addEventListener('click', mostrarPopup);
 
+//=============================================================================//
+//                 Cuando pague con la tarjeta seleccionada                    //
+//=============================================================================//
+const btnPagarFinal = document.getElementById('btnPagarFinal');
+const formPagar = document.getElementById('formPagar');
+formPagar.addEventListener('submit', function (event) {
+    event.preventDefault();
+    //Cuando de click al boton pagar
+    const selectedText = ddlTarjeta.options[ddlTarjeta.selectedIndex].text;
 
 
+    if (/^[0-9\s]*$/.test(selectedText)) {
+        const reciboElement = document.querySelector('.recibo');
+
+        // Obtén las dimensiones del recibo
+        const contentWidth = reciboElement.offsetWidth;
+        const contentHeight = reciboElement.offsetHeight;
+
+        // Configuración para ajustar el tamaño exacto del recibo
+        const options = {
+            margin: 0, // Sin márgenes adicionales
+            filename: 'recibo-pago.pdf',
+            image: { type: 'jpeg', quality: 0.98 },
+            html2canvas: {
+                scale: 4, // Calidad
+                useCORS: true // Permitir cargar recursos de manera segura
+            },
+            jsPDF: {
+                unit: 'px', // Usar píxeles
+                format: [contentWidth, contentHeight], // Tamaño dinámico basado en el recibo
+                orientation: 'portrait'
+            }
+        };
+
+        // Genera y descarga el PDF
+        html2pdf().set(options).from(reciboElement).save();
+
+
+        alert('Pago finalizado');
+    } else {
+        tNum.textContent = "";
+        alert("No hay tarjetas para pagar, porfavor agregue una");
+    }
+})

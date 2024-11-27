@@ -30,12 +30,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
     if ($row = $resultado->fetch_assoc()) {
         $datos = [
             'estado_servicio' => $row['estado_servicio'],
+            'adeudo_mes' => $row['adeudo_mes'],
             'tipo_contrato' => $row['tipo_contrato'],
             'direccion' => $row['direccion'],
             'consumo_promedio' => $row['consumo_promedio'],
             'consumo_mes_reciente' => $row['consumo_mes_reciente'],
             'proximo_vencimiento' => $row['proximo_vencimiento'],
-            'adeudo_total' => $row['adeudo_total']
+            'adeudo_total' => $row['adeudo_total'],
+            'meses_adeudo' => $row['meses_adeudo'],
+            'nombre_completo' => $row['nombre_completo']
         ];
     } else {
         $datos = ['error' => 'No se encontraron datos para la cuenta seleccionada'];
