@@ -31,3 +31,4 @@ fondoPop.addEventListener('click', () => {
   popovers.forEach(popover => popover.hidePopover());
   fondoPop.style.display = "none"
 });
+

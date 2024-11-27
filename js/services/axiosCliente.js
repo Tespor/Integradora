@@ -435,7 +435,7 @@ formPagar.addEventListener('submit', function (event) {
 
     if (/^[0-9\s]*$/.test(selectedText)) {
         const reciboElement = document.querySelector('.recibo');
-
+        reciboElement.style.display = "block";
         // Obtén las dimensiones del recibo
         const contentWidth = reciboElement.offsetWidth;
         const contentHeight = reciboElement.offsetHeight;
@@ -458,9 +458,10 @@ formPagar.addEventListener('submit', function (event) {
 
         // Genera y descarga el PDF
         html2pdf().set(options).from(reciboElement).save();
-
-
         alert('Pago finalizado');
+        setTimeout(() => {
+            reciboElement.style.display = "none";
+        }, 1000);
     } else {
         tNum.textContent = "";
         alert("No hay tarjetas para pagar, porfavor agregue una");

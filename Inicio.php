@@ -54,15 +54,15 @@
 
     <div class="menu-lateral">
         <div class="main-row">
-            <div class="card">
+            <div class="card" id="btnGas" popovertargetaction="show" popovertarget="popup_prox">
                 <img src="img/Iconos/icon_fire.png" alt="Gas icon">
                 <p>GAS</p>
             </div>
-            <div class="card">
+            <div class="card" id="btnAgua">
                 <img src="img/Iconos/gota.png" alt="Agua icon">
                 <p>AGUA</p>
             </div>
-            <div class="card">
+            <div class="card" id="btnLuz" popovertargetaction="show" popovertarget="popup_prox">
                 <img src="img/Iconos/rayo.png" alt="Luz icon">
                 <p>LUZ</p>
             </div>
@@ -239,7 +239,7 @@
                                         <!--Alerta de borrar tarjeta-->
                                         <div id="popup" class="popup">
                                             <div class="popup-content">
-                                                <p>¿Estás seguro de que deseas eliminar este registro?</p>
+                                                <p>¿Estás seguro de que deseas eliminar esta tarjeta?</p>
                                                 <div class="content-btn">
                                                     <button id="confirmar" class="popup-btn">OK</button>
                                                     <button id="cancelar" class="popup-btn">Cancelar</button>
@@ -333,7 +333,7 @@
         <div id="fondoPop" class="fondoPop"></div>
 
         <!--Recibo-->
-        <div class="recibo" id="recibo">
+        <div class="recibo" id="recibo" style="display: none;">
             <div class="recibo-header">
                 <img src="img/LogosEmpresa/1-BLNCO.png" alt="">
                 <p>SERVICIO DE <span>AGUA</span></p>
@@ -350,6 +350,14 @@
             </div>
             <div class="qr-section">
                 <p class="instruction">COMPROBANTE <br> DE PAGO</p>
+            </div>
+        </div>
+
+        <!--Pop Up proximamente-->
+
+        <div id="popup_prox" class="ModalX" popover>
+            <div class="popup-content" style="box-shadow: none;">
+                <p>!PROXIMAMENTE¡</p>
             </div>
         </div>
 
