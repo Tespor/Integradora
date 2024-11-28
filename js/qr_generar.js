@@ -7,20 +7,23 @@ btnQR.addEventListener('click', function(){
     qrContent.innerHTML = '';
 
     const DatosCuenta = [
-        EstadoServicio.textContent,
-        TipoContrato.textContent,
         Direccion.textContent,
-        ConsumoProm.textContent,
+        EstadoServicio.textContent,
+        MesesAdeudo.textContent,
+        AdeudoMes.textContent,
         ConsumoMes.textContent,
+        ConsumoProm.textContent,
         ProxVencimiento.textContent,
+        TipoContrato.textContent,
         AdeudoTotal.textContent
     ]
-    
+
     const datosLlenos = DatosCuenta.every(dato => dato.trim() !== "");
 
     if (datosLlenos){
         new QRCode(QRcode, {
-            text: `${EstadoServicio.textContent},${TipoContrato.textContent},${Direccion.textContent},${ConsumoProm.textContent},${ConsumoMes.textContent},${ProxVencimiento.textContent},${AdeudoTotal.textContent}`,
+            //text: `${EstadoServicio.textContent},${TipoContrato.textContent},${Direccion.textContent},${ConsumoProm.textContent},${ConsumoMes.textContent},${ProxVencimiento.textContent},${AdeudoTotal.textContent}`,
+            text: DatosCuenta.join(","),
             width: 256,
             height: 256,
             colorDark: "#000000",

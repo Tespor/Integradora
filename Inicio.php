@@ -40,7 +40,7 @@
                 </div>
                 <hr>
                 <a class="btnMenuUser" href="Inicio.php">
-                    Inicio
+                    Detalles de la cuenta
                 </a>
                 <a class="btnMenuUser" href="PagosMensualidades.php">
                     Pagos y mensualidades
@@ -135,6 +135,26 @@
                         <div class="cardServ">
                             <div class="text-icon">
                                 <img src="img/Iconos/icon_calendario.png" alt="Icono">
+                                <h2>Direccion</h2>
+                            </div>
+                            <hr>
+                            <p id="Direccion"></p>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-md-12 col-lg-6">
+                        <div class="cardServ">
+                            <div class="text-icon">
+                                <img src="img/Iconos/icon_calendario.png" alt="Icono">
+                                <h2>Estado Del Servicio</h2>
+                            </div>
+                            <hr>
+                            <p id="EstadoServicio"></p>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-md-12 col-lg-6">
+                        <div class="cardServ">
+                            <div class="text-icon">
+                                <img src="img/Iconos/icon_calendario.png" alt="Icono">
                                 <h2>Meses Adeudados</h2>
                             </div>
                             <hr>
@@ -145,43 +165,10 @@
                         <div class="cardServ">
                             <div class="text-icon">
                                 <img src="img/Iconos/icon_calendario.png" alt="Icono">
-                                <h2>Adeudo actual</h2>
+                                <h2>Adeudo del mes</h2>
                             </div>
                             <hr>
                             <p id="AdeudoMes"></p>
-                        </div>
-                    </div>
-
-                    <div class="col-sm-12 col-md-12 col-lg-6">
-                        <div class="cardServ">
-                            <div class="text-icon">
-                                <img src="img/Iconos/icon_calendario.png" alt="Icono">
-                                <h2>Proximo Vencimiento</h2>
-                            </div>
-                            <hr>
-                            <p id="ProxVencimiento"></p>
-                        </div>
-                    </div>
-
-                    <div class="col-sm-12 col-md-12 col-lg-6">
-                        <div class="cardServ">
-                            <div class="text-icon">
-                                <img src="img/Iconos/icon_calendario.png" alt="Icono">
-                                <h2>Tipo de contrato</h2>
-                            </div>
-                            <hr>
-                            <p id="TipoContrato"></p>
-                        </div>
-                    </div>
-
-                    <div class="col-sm-12 col-md-12 col-lg-6">
-                        <div class="cardServ">
-                            <div class="text-icon">
-                                <img src="img/Iconos/icon_calendario.png" alt="Icono">
-                                <h2>Estado Del Servicio</h2>
-                            </div>
-                            <hr>
-                            <p id="EstadoServicio"></p>
                         </div>
                     </div>
 
@@ -206,14 +193,26 @@
                             <p id="ConsumoProm"></p>
                         </div>
                     </div>
+
                     <div class="col-sm-12 col-md-12 col-lg-6">
                         <div class="cardServ">
                             <div class="text-icon">
                                 <img src="img/Iconos/icon_calendario.png" alt="Icono">
-                                <h2>Direccion</h2>
+                                <h2>Proximo Vencimiento</h2>
                             </div>
                             <hr>
-                            <p id="Direccion"></p>
+                            <p id="ProxVencimiento"></p>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-12 col-md-12 col-lg-6">
+                        <div class="cardServ">
+                            <div class="text-icon">
+                                <img src="img/Iconos/icon_calendario.png" alt="Icono">
+                                <h2>Tipo de contrato</h2>
+                            </div>
+                            <hr>
+                            <p id="TipoContrato"></p>
                         </div>
                     </div>
                 </div>
