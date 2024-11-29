@@ -7,15 +7,11 @@ btnQR.addEventListener('click', function(){
     qrContent.innerHTML = '';
 
     const DatosCuenta = [
-        Direccion.textContent,
-        EstadoServicio.textContent,
-        MesesAdeudo.textContent,
-        AdeudoMes.textContent,
-        ConsumoMes.textContent,
-        ConsumoProm.textContent,
-        ProxVencimiento.textContent,
-        TipoContrato.textContent,
-        AdeudoTotal.textContent
+        nom_recibo.textContent,
+        dir_recibo.textContent,
+        cuenta_recibo.textContent,
+        mesespagados_recibo.textContent,
+        total_recibo.textContent
     ]
 
     const datosLlenos = DatosCuenta.every(dato => dato.trim() !== "");

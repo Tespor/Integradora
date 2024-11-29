@@ -339,6 +339,7 @@
             </div>
             <div class="recibo-body">
                 <p>TITULAR DE LA CUENTA: <span class="textos" id="nom_recibo"></span></p>
+                <p>DIRECCION: <span class="textos" id="dir_recibo"></span></p>
                 <p>NUMERO DE CUENTA: <span class="textos" id="cuenta_recibo"></span></p>
                 <p>NUMERO DE TRANSACCIÓN: <span class="textos" id="cuenta_recibo"></span></p>
                 <p>MESES PAGADOS: <span class="textos" id="mesespagados_recibo"></span></p>

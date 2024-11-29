@@ -50,6 +50,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 } elseif ($rol_user == 2) {
                     $response["role"] = "cliente";
                     $response["endpoint"] = "Inicio.php";
+                    $response["id"] = $id_user;
                 }
                 $_SESSION['id'] = $id_user;
                 $_SESSION['nombre'] = $nombre_usuario;

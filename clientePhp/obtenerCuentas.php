@@ -5,7 +5,17 @@ header("Content-Type: application/json; charset=UTF-8");
 
 //decodificar el username
 $userNameJson = json_decode(file_get_contents("php://input"), true);
-$fk_user = $_SESSION['id'];
+
+if (isset($_SESSION['id'])) {
+    $fk_user = $_SESSION['id'];
+} elseif (isset($userNameJson['id'])) {
+    $fk_user = $userNameJson['id'];
+} else {
+    // Si no se encuentra ni en la sesión ni en el JSON, responde con un error
+    echo json_encode(['error' => 'No se proporcionó un identificador de usuario']);
+    exit;
+}
+//$fk_user = 2;
 
 // Consulta SQL para obtener todos los datos de la columna deseada
 $selectCuentas = "SELECT idCuenta FROM cuentas WHERE fk_usuario = ?;";

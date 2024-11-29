@@ -1,4 +1,6 @@
 //=============CLIENTE=================//
+var titular = "";
+
 const EstadoServicio = document.getElementById('EstadoServicio');
 const AdeudoMes = document.getElementById('AdeudoMes');
 const TipoContrato = document.getElementById('TipoContrato');
@@ -10,6 +12,7 @@ const AdeudoTotal = document.getElementById('adeudoTotalH1');
 const MesesAdeudo = document.getElementById('MesesAdeudo');
 //===========Datos Recibo===============//
 const nom_recibo = document.getElementById('nom_recibo');
+const dir_recibo = document.getElementById('dir_recibo');
 const cuenta_recibo = document.getElementById('cuenta_recibo');
 const mesespagados_recibo = document.getElementById('mesespagados_recibo');
 const estado_recibo = document.getElementById('estado_recibo');
@@ -41,9 +44,6 @@ axios.post('clientePhp/obtenerCuentas.php')
             console.error(data.error); // Muestra el error si existe
             ddlCuentas.innerHTML = '<option value="">Ninguna cuenta existente</option>';
         } else {
-            // Limpia el <select> antes de agregar las nuevas opciones
-            ddlCuentas.innerHTML = '<option value="">Seleccione una opción</option>';
-
             // Itera sobre los datos y crea una opción para cada nombre
             data.forEach(nombre => {
                 const option = document.createElement('option');
@@ -95,6 +95,9 @@ document.getElementById('formCuenta').addEventListener('submit', function (event
 //var para borrar primer option
 var x = true;
 ddlCuentas.addEventListener('change', function () {
+    mostrarDetallesCuenta();
+});
+function mostrarDetallesCuenta(){
     // Texto de la opción seleccionada
     const cuentaSelec = parseInt(ddlCuentas.options[ddlCuentas.selectedIndex].text);
     cuenta_recibo.textContent = cuentaSelec;//Cuenta para rellenar recibo
@@ -142,7 +145,10 @@ ddlCuentas.addEventListener('change', function () {
                 MesesAdeudo.textContent = d.meses_adeudo;
 
                 //rellenar recibo
+                titular = d.nombre_completo //Para qr
+
                 nom_recibo.textContent = d.nombre_completo;
+                dir_recibo.textContent = d.direccion;
                 mesespagados_recibo.textContent = d.meses_adeudo;
                 fecha_recibo.textContent = new Date().getDate() + "/" + (new Date().getMonth() + 1) + "/" + new Date().getFullYear();
                 total_recibo.textContent = d.adeudo_total;
@@ -169,9 +175,10 @@ ddlCuentas.addEventListener('change', function () {
             console.error('Error en la solicitud:', error);
             alert("Ocurrió un error al realizar la solicitud.");
         });
-});
-
-
+}
+document.addEventListener('DOMContentLoaded', function(){
+    mostrarDetallesCuenta();
+})
 //=============================================================================//
 //                           Crear nueva tarjeta                               //
 //=============================================================================//
