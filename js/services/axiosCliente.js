@@ -449,7 +449,7 @@ formPagar.addEventListener('submit', function (event) {
 
         // Configuración para ajustar el tamaño exacto del recibo
         const options = {
-            margin: 0, // Sin márgenes adicionales
+            margin: 0,
             filename: 'recibo-pago.pdf',
             image: { type: 'jpeg', quality: 0.98 },
             html2canvas: {

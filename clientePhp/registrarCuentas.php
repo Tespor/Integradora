@@ -10,11 +10,21 @@ if (!$data || !isset($data['estadoServicio']) || !isset($data['tipoContrato']) |
     exit;
 }
 
+if (isset($_SESSION['id'])) {
+    $fk_user = $_SESSION['id'];
+} elseif (isset($data['id'])) {
+    $fk_user = $data['id'];
+} else {
+    // Si no se encuentra ni en la sesión ni en el JSON, responde con un error
+    echo json_encode(['error' => 'No se proporcionó un identificador de usuario']);
+    exit;
+}
+
 // Asignar valores
 $estadoServicio = $data['estadoServicio'];
 $tipoContrato = $data['tipoContrato'];
 $direccion = $data['direccion'];
-$fk_usuario = $_SESSION['id'];
+$fk_usuario = $fk_user;
 
 // Preparar y ejecutar el procedimiento almacenado
 $stmt = $conn->prepare("CALL Sp_InsertarServicio(?, ?, ?, ?)");
