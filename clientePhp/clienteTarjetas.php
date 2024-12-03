@@ -32,25 +32,36 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         $conn->close();
     } 
-    
+    //Para sacar los datos
     elseif (isset($data->tarjeta)) {
         $numTarjeta = $data->tarjeta;
         $nombreTitular = $data->titular;
         $banco = $data->banco;
         $cvv = $data->CVV;
         $fechaVencimiento = $data->vencimiento;
-        $fkCliente = $_SESSION['id'];
+        $fk_user = 0;
 
+        //Validar usuario
+        if (isset($_SESSION['id'])) {
+            $fk_user = $_SESSION['id'];
+        } elseif (isset($data->userID)) {
+            $fk_user = $data->userID;
+        } else {
+            // Error si no se encuentra el userID
+            echo json_encode(['status' => 0, 'message' => 'No se proporcionó un identificador de usuario']);
+            exit;
+        }
+        
         $query = "CALL Sp_guardarTarjeta(?, ?, ?, ?, ?, ?)";
 
         if ($stmt = $conn->prepare($query)) {
 
-            $stmt->bind_param("sssssi", $numTarjeta, $nombreTitular, $banco, $cvv, $fechaVencimiento, $fkCliente);
+            $stmt->bind_param("sssssi", $numTarjeta, $nombreTitular, $banco, $cvv, $fechaVencimiento, $fk_user);
 
             if ($stmt->execute()) {
                 echo json_encode(['status' => 1, 'message' => 'Tarjeta registrada con éxito']);
             } else {
-                echo json_encode(['status' => 0, 'message' => 'Error al registrar la tarjeta']);
+                echo json_encode(['status' => 0, 'message' => 'Error al registrar la tarjeta', 'error' => $stmt->error]);
             }
 
             $stmt->close();
@@ -60,12 +71,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 } elseif ($_SERVER["REQUEST_METHOD"] == "GET") {
 
-    if (isset($_SESSION['id'])) {
+    if (isset($_SESSION['id']) || isset($_GET['id'])) {
+
+        if (isset($_SESSION['id'])) {
+            $fk_user = $_SESSION['id'];
+        } elseif (isset($_GET['id'])) {
+            $fk_user = $_GET['id'];
+        } else {
+            // Si no se encuentra ni en la sesión ni en el JSON, responde con un error
+            echo json_encode(['error' => 'No se proporcionó un identificador de usuario']);
+            exit;
+        }
 
         $query = "SELECT * FROM tarjetas WHERE fk_usuario = ?;";
 
         if ($consulta = $conn->prepare($query)) {
-            $consulta->bind_param("i", $_SESSION['id']);
+            $consulta->bind_param("i", $fk_user);
             $consulta->execute();
 
             $resultado = $consulta->get_result();

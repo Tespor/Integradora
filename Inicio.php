@@ -341,7 +341,7 @@
                 <p>TITULAR DE LA CUENTA: <span class="textos" id="nom_recibo"></span></p>
                 <p>DIRECCION: <span class="textos" id="dir_recibo"></span></p>
                 <p>NUMERO DE CUENTA: <span class="textos" id="cuenta_recibo"></span></p>
-                <p>NUMERO DE TRANSACCIÓN: <span class="textos" id="cuenta_recibo"></span></p>
+                <p>NUMERO DE TRANSACCIÓN: <span class="textos" id="trans_recibo"></span></p>
                 <p>MESES PAGADOS: <span class="textos" id="mesespagados_recibo"></span></p>
                 <p>ESTADO: <span class="textos" id="estado_recibo"></span></p>
                 <p>FECHA DEL PAGO: <span class="textos" id="fecha_recibo"></span></p>

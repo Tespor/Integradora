@@ -1,6 +1,6 @@
 //=============CLIENTE=================//
 var titular = "";
-
+//===========Detalles de la cuenta============//
 const EstadoServicio = document.getElementById('EstadoServicio');
 const AdeudoMes = document.getElementById('AdeudoMes');
 const TipoContrato = document.getElementById('TipoContrato');
@@ -16,6 +16,7 @@ const dir_recibo = document.getElementById('dir_recibo');
 const cuenta_recibo = document.getElementById('cuenta_recibo');
 const mesespagados_recibo = document.getElementById('mesespagados_recibo');
 const estado_recibo = document.getElementById('estado_recibo');
+const trans_recibo = document.getElementById('trans_recibo');
 const fecha_recibo = document.getElementById('fecha_recibo');
 const total_recibo = document.getElementById('total_recibo');
 
@@ -93,19 +94,14 @@ document.getElementById('formCuenta').addEventListener('submit', function (event
 //   Cuando el select cambie que muestre los datos de la cuenta del usuario    //
 //=============================================================================//
 //var para borrar primer option
-var x = true;
 ddlCuentas.addEventListener('change', function () {
     mostrarDetallesCuenta();
 });
 function mostrarDetallesCuenta(){
-    // Texto de la opción seleccionada
+    // Cuenta seleccionada Int
     const cuentaSelec = parseInt(ddlCuentas.options[ddlCuentas.selectedIndex].text);
     cuenta_recibo.textContent = cuentaSelec;//Cuenta para rellenar recibo
 
-    if (x) {
-        ddlCuentas.remove(0);
-        x = false;
-    }
     //Mostrar datos de la cuenta
     axios.post('clientePhp/datosCuenta.php', { idCuenta: cuentaSelec },
         {
@@ -141,8 +137,12 @@ function mostrarDetallesCuenta(){
                 ConsumoProm.textContent = d.consumo_promedio + " L";
                 ConsumoMes.textContent = d.consumo_mes_reciente + " L";
                 ProxVencimiento.textContent = d.proximo_vencimiento;
-                AdeudoTotal.textContent = "$" + d.adeudo_total;
+                AdeudoTotal.textContent = d.adeudo_total;
                 MesesAdeudo.textContent = d.meses_adeudo;
+
+                if (d.adeudo_total == ""){
+                    AdeudoTotal.textContent = "00.00"
+                }
 
                 //rellenar recibo
                 titular = d.nombre_completo //Para qr
@@ -436,41 +436,86 @@ const btnPagarFinal = document.getElementById('btnPagarFinal');
 const formPagar = document.getElementById('formPagar');
 formPagar.addEventListener('submit', function (event) {
     event.preventDefault();
-    //Cuando de click al boton pagar
-    const selectedText = ddlTarjeta.options[ddlTarjeta.selectedIndex].text;
+    
+    const selectedText = ddlTarjeta.options[ddlTarjeta.selectedIndex].text; //Tarjeta string
+    const cuentaSelec = parseInt(ddlCuentas.options[ddlCuentas.selectedIndex].text);//Cuneta int
 
+    let totalReciboFloat = parseFloat(AdeudoTotal.textContent);//Total float
+    let mesesPagadosInt = parseInt(MesesAdeudo.textContent); //Meses pagados
+
+
+    
 
     if (/^[0-9\s]*$/.test(selectedText)) {
-        const reciboElement = document.querySelector('.recibo');
-        reciboElement.style.display = "block";
-        // Obtén las dimensiones del recibo
-        const contentWidth = reciboElement.offsetWidth;
-        const contentHeight = reciboElement.offsetHeight;
-
-        // Configuración para ajustar el tamaño exacto del recibo
-        const options = {
-            margin: 0,
-            filename: 'recibo-pago.pdf',
-            image: { type: 'jpeg', quality: 0.98 },
-            html2canvas: {
-                scale: 4, // Calidad
-                useCORS: true // Permitir cargar recursos de manera segura
-            },
-            jsPDF: {
-                unit: 'px', // Usar píxeles
-                format: [contentWidth, contentHeight], // Tamaño dinámico basado en el recibo
-                orientation: 'portrait'
-            }
-        };
-
-        // Genera y descarga el PDF
-        html2pdf().set(options).from(reciboElement).save();
-        alert('Pago finalizado');
-        setTimeout(() => {
-            reciboElement.style.display = "none";
-        }, 1000);
+        insertarPago(totalReciboFloat, mesesPagadosInt, cuentaSelec, selectedText);
     } else {
         tNum.textContent = "";
         alert("No hay tarjetas para pagar, porfavor agregue una");
     }
+
 })
+
+
+//Funcion para pagar
+function insertarPago(monto, mpagos, cuenta, tarjeta) {
+    // Datos ficticios de prueba
+    const datosPago = {
+        monto: monto,  //  float
+        meses_pagados: mpagos,  // int
+        fk_cuenta: cuenta,  // int
+        fk_tarjeta: tarjeta  // varchar
+    };
+
+    // Enviar los datos al archivo PHP
+    axios.post('clientePhp/Pagos.php', datosPago, {
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+    .then(respuesta => {
+        const data = respuesta.data;
+        if (data.status === 1) {
+
+            estado_recibo.textContent = "Liquidado";
+            trans_recibo.textContent = data.transaccion;
+            mostrarDetallesCuenta();
+
+            const reciboElement = document.querySelector('.recibo');
+            reciboElement.style.display = "block";
+            // Obtén las dimensiones del recibo
+            const contentWidth = reciboElement.offsetWidth;
+            const contentHeight = reciboElement.offsetHeight;
+    
+            // Configuración para ajustar el tamaño exacto del recibo
+            const options = {
+                margin: 0,
+                filename: 'recibo-pago.pdf',
+                image: { type: 'jpeg', quality: 0.98 },
+                html2canvas: {
+                    scale: 4, // Calidad
+                    useCORS: true // Permitir cargar recursos de manera segura
+                },
+                jsPDF: {
+                    unit: 'px', // Usar píxeles
+                    format: [contentWidth, contentHeight], // Tamaño dinámico basado en el recibo
+                    orientation: 'portrait'
+                }
+            };
+    
+            // Genera y descarga el PDF
+            html2pdf().set(options).from(reciboElement).save();
+            alert('Pago registrado exitosamente');
+            setTimeout(() => {
+                reciboElement.style.display = "none";
+            }, 1000);
+
+        } else {
+            alert('Error: ' + data.message);
+        }
+    })
+    .catch(error => {
+        console.error('Error al realizar la solicitud:', error);
+        alert('Error al enviar la solicitud');
+    });
+}
+
