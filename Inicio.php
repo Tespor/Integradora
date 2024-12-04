@@ -220,7 +220,7 @@
                     <div class="col-sm-12 col-md-12 col-lg-6">
                         <div class="pTotal">
                             <h3>ADEUDO TOTAL</h3>
-                            <h1 id="adeudoTotalH1"></h1>
+                            <h1 id="adeudoTotalH1">0.00</h1>
                         </div>
                     </div>
                     <div class="col-sm-12 col-md-12 col-lg-6">

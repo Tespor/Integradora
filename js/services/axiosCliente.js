@@ -45,13 +45,14 @@ axios.post('clientePhp/obtenerCuentas.php')
             console.error(data.error); // Muestra el error si existe
             ddlCuentas.innerHTML = '<option value="">Ninguna cuenta existente</option>';
         } else {
-            // Itera sobre los datos y crea una opción para cada nombre
-            data.forEach(nombre => {
+            // Itera sobre los datos y crea una opción para cada numero de cuenta
+            data.forEach(cuenta => {
                 const option = document.createElement('option');
-                option.value = nombre; // Puedes usar otro valor si necesitas un ID en su lugar
-                option.textContent = nombre;
+                option.value = cuenta;
+                option.textContent = cuenta;
                 ddlCuentas.appendChild(option);
             });
+            mostrarDetallesCuenta();
         }
     })
     .catch(error => {
@@ -98,9 +99,11 @@ ddlCuentas.addEventListener('change', function () {
     mostrarDetallesCuenta();
 });
 function mostrarDetallesCuenta(){
+    
+    const ddlCuentas = document.getElementById('ddlCuentas');
     // Cuenta seleccionada Int
     const cuentaSelec = parseInt(ddlCuentas.options[ddlCuentas.selectedIndex].text);
-    cuenta_recibo.textContent = cuentaSelec;//Cuenta para rellenar recibo
+    cuenta_recibo.textContent = "" + cuentaSelec//Cuenta para rellenar recibo
 
     //Mostrar datos de la cuenta
     axios.post('clientePhp/datosCuenta.php', { idCuenta: cuentaSelec },
@@ -122,7 +125,7 @@ function mostrarDetallesCuenta(){
                 ConsumoProm.textContent = "";
                 ConsumoMes.textContent = "";
                 ProxVencimiento.textContent = "";
-                AdeudoTotal.textContent = "";
+                AdeudoTotal.textContent = "0.00";
                 MesesAdeudo.textContent = "";
 
                 alert("Numero de cuenta invalida o no contiene datos");
@@ -137,12 +140,8 @@ function mostrarDetallesCuenta(){
                 ConsumoProm.textContent = d.consumo_promedio + " L";
                 ConsumoMes.textContent = d.consumo_mes_reciente + " L";
                 ProxVencimiento.textContent = d.proximo_vencimiento;
-                AdeudoTotal.textContent = d.adeudo_total;
+                AdeudoTotal.textContent = d.adeudo_total && d.adeudo_total.trim() !== "" ? d.adeudo_total : "0.00";
                 MesesAdeudo.textContent = d.meses_adeudo;
-
-                if (d.adeudo_total == ""){
-                    AdeudoTotal.textContent = "00.00"
-                }
 
                 //rellenar recibo
                 titular = d.nombre_completo //Para qr
@@ -176,9 +175,6 @@ function mostrarDetallesCuenta(){
             alert("Ocurrió un error al realizar la solicitud.");
         });
 }
-document.addEventListener('DOMContentLoaded', function(){
-    mostrarDetallesCuenta();
-})
 //=============================================================================//
 //                           Crear nueva tarjeta                               //
 //=============================================================================//
